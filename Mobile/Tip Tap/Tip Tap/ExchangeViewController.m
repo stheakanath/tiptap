@@ -7,6 +7,7 @@
 //
 
 #import "ExchangeViewController.h"
+#import "Circle.h"
 #import "EFCircularSlider.h"
 #import <QuartzCore/QuartzCore.h>
 
@@ -46,6 +47,10 @@
     [circularSlider setCurrentValue:10.0f];
     
     [self setUpInterface];
+    
+    Circle *test = [[Circle alloc] init:[UIColor greenColor] withFrame:40];
+    [test setFrame:CGRectMake(100, 100, 40, 40)];
+    [self.view addSubview:test];
     
 }
 

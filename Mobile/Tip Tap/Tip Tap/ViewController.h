@@ -11,6 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 @interface ViewController : UIViewController <CLLocationManagerDelegate>
+
 -(void)roundButtonDidTap:(UIButton*)tappedButton;
 
 @end

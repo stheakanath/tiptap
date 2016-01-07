@@ -30,6 +30,7 @@
 		EB8AB65F1C3DFFB80092D79B /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8AB65E1C3DFFB80092D79B /* libz.tbd */; };
 		EB8AB6611C3DFFF60092D79B /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8AB6601C3DFFF60092D79B /* libsqlite3.tbd */; };
 		EBF8CDA51C3EB29500F864FE /* EFCircularSlider in Resources */ = {isa = PBXBuildFile; fileRef = EBF8CDA41C3EB29500F864FE /* EFCircularSlider */; };
+		EBF8CDA81C3EB53C00F864FE /* ExchangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBF8CDA71C3EB53C00F864FE /* ExchangeViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +61,8 @@
 		EB8AB65E1C3DFFB80092D79B /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		EB8AB6601C3DFFF60092D79B /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		EBF8CDA41C3EB29500F864FE /* EFCircularSlider */ = {isa = PBXFileReference; lastKnownFileType = folder; path = EFCircularSlider; sourceTree = "<group>"; };
+		EBF8CDA61C3EB53C00F864FE /* ExchangeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExchangeViewController.h; sourceTree = "<group>"; };
+		EBF8CDA71C3EB53C00F864FE /* ExchangeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExchangeViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,8 +111,12 @@
 		EB8AB61E1C3DFD070092D79B /* Tip Tap */ = {
 			isa = PBXGroup;
 			children = (
+				EB8AB6221C3DFD070092D79B /* AppDelegate.h */,
+				EB8AB6231C3DFD070092D79B /* AppDelegate.m */,
 				EB8AB6251C3DFD070092D79B /* ViewController.h */,
 				EB8AB6261C3DFD070092D79B /* ViewController.m */,
+				EBF8CDA61C3EB53C00F864FE /* ExchangeViewController.h */,
+				EBF8CDA71C3EB53C00F864FE /* ExchangeViewController.m */,
 				EBF8CDA31C3EB28800F864FE /* External */,
 				EB8AB61F1C3DFD070092D79B /* Supporting Files */,
 			);
@@ -119,8 +126,6 @@
 		EB8AB61F1C3DFD070092D79B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				EB8AB6221C3DFD070092D79B /* AppDelegate.h */,
-				EB8AB6231C3DFD070092D79B /* AppDelegate.m */,
 				EB8AB62B1C3DFD070092D79B /* Assets.xcassets */,
 				EB8AB6301C3DFD070092D79B /* Info.plist */,
 				EB8AB6281C3DFD070092D79B /* Main.storyboard */,
@@ -226,6 +231,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EB8AB6271C3DFD070092D79B /* ViewController.m in Sources */,
+				EBF8CDA81C3EB53C00F864FE /* ExchangeViewController.m in Sources */,
 				EB8AB6241C3DFD070092D79B /* AppDelegate.m in Sources */,
 				EB8AB6211C3DFD070092D79B /* main.m in Sources */,
 			);

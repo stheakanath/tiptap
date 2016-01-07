@@ -15,10 +15,13 @@
 @property (nonatomic, retain) CLLocationManager *locationManager;
 @property (nonatomic, retain) NSString *lat;
 @property (nonatomic, retain) NSString *lon;
-
 @end
 
 @implementation ViewController
+
+- (void)setUpInterface {
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

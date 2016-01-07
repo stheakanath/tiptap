@@ -25,7 +25,7 @@ Parse.Cloud.define("attemptTransaction", function(request, response) {
 				}
 			}
 			if (geofiltered_matches.length == 0) {
-				status = "No users were found in your area who have the app open.";
+				var status = "No users were found in your area who have the app open.";
 				response.error(status);
 			} else {
 				var final_matches = [];
@@ -39,7 +39,7 @@ Parse.Cloud.define("attemptTransaction", function(request, response) {
 					}
 				}
 				if (final_matches.length == 0) {
-					status = "We see other users in your area, but they do not seem to be shaking. Please try again.";
+					var status = "We see other users in your area, but they do not seem to be shaking. Please try again.";
 					response.error(status);
 				} else {
 					response.success(final_matches);
@@ -47,14 +47,18 @@ Parse.Cloud.define("attemptTransaction", function(request, response) {
 			}
 		},
 		error: function() {
-			err = "No other active users found. Please close app, open, and try again.";
-			response.error(status);
+			var err = "No other active users found. Please close app, open, and try again.";
+			response.error(err);
 		}
 	});
 });
 
-Parse.Cloud.define("setShakeTrue", function(request, response) {
+Parse.Cloud.define("setShake", function(request, response) {
 	var p_query = Parse.Query("Parse.User");
+	var shake_setting = false;
+	if (request.params.shake == "true") {
+		shake_setting = true;
+	}
 	p_query.get(request.params.obj_id, {
 		success : function(results) {
 			if (results.length > 1) {
@@ -62,7 +66,7 @@ Parse.Cloud.define("setShakeTrue", function(request, response) {
 				response.error(status);
 			} else {
 				var user = results[0];
-				user.set("isShaking", true);
+				user.set("isShaking", shake_setting);
 				user.save();
 			}
 		}

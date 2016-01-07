@@ -10,4 +10,6 @@
 
 @interface ExchangeViewController : UIViewController
 
+@property (retain, nonatomic)  UILabel *tipAmount;
+
 @end

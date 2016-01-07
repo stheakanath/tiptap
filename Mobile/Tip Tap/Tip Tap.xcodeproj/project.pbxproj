@@ -29,6 +29,7 @@
 		EB8AB65D1C3DFFB20092D79B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8AB65C1C3DFFB20092D79B /* SystemConfiguration.framework */; };
 		EB8AB65F1C3DFFB80092D79B /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8AB65E1C3DFFB80092D79B /* libz.tbd */; };
 		EB8AB6611C3DFFF60092D79B /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8AB6601C3DFFF60092D79B /* libsqlite3.tbd */; };
+		EBF8CDA51C3EB29500F864FE /* EFCircularSlider in Resources */ = {isa = PBXBuildFile; fileRef = EBF8CDA41C3EB29500F864FE /* EFCircularSlider */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		EB8AB65C1C3DFFB20092D79B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		EB8AB65E1C3DFFB80092D79B /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		EB8AB6601C3DFFF60092D79B /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		EBF8CDA41C3EB29500F864FE /* EFCircularSlider */ = {isa = PBXFileReference; lastKnownFileType = folder; path = EFCircularSlider; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +110,7 @@
 			children = (
 				EB8AB6251C3DFD070092D79B /* ViewController.h */,
 				EB8AB6261C3DFD070092D79B /* ViewController.m */,
+				EBF8CDA31C3EB28800F864FE /* External */,
 				EB8AB61F1C3DFD070092D79B /* Supporting Files */,
 			);
 			path = "Tip Tap";
@@ -141,6 +144,14 @@
 				EB8AB6201C3DFD070092D79B /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EBF8CDA31C3EB28800F864FE /* External */ = {
+			isa = PBXGroup;
+			children = (
+				EBF8CDA41C3EB29500F864FE /* EFCircularSlider */,
+			);
+			name = External;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -203,6 +214,7 @@
 				EB8AB62F1C3DFD070092D79B /* LaunchScreen.storyboard in Resources */,
 				EB8AB62C1C3DFD070092D79B /* Assets.xcassets in Resources */,
 				EB8AB62A1C3DFD070092D79B /* Main.storyboard in Resources */,
+				EBF8CDA51C3EB29500F864FE /* EFCircularSlider in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

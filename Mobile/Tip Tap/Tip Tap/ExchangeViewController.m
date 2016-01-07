@@ -9,6 +9,7 @@
 #import "ExchangeViewController.h"
 #import "Circle.h"
 #import "EFCircularSlider.h"
+#import "BackgroundLayer.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface ExchangeViewController ()
@@ -18,17 +19,24 @@
 @implementation ExchangeViewController
 
 - (void)setUpInterface {
-    [self.view setBackgroundColor:[UIColor whiteColor]];
+    [self.view setBackgroundColor:UIColorFromRGB(0xf5f5f5)];
+
+    CAGradientLayer *bgLayer = [BackgroundLayer greyGradient];
+    bgLayer.frame = self.view.bounds;
+    [self.view.layer insertSublayer:bgLayer atIndex:0];
+    
     self.tipAmount = [[UILabel alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - 150, [[UIScreen mainScreen] bounds].size.height/2 - 150, 300, 300)];
     [self.tipAmount setTextAlignment:UITextAlignmentCenter];
-    [self.tipAmount setText:@"0"];
-    [self.tipAmount setFont:[UIFont systemFontOfSize:60]];
+    [self.tipAmount setText:@"$0"];
+    [self.tipAmount setFont:[UIFont fontWithName:@"HelveticaNeue-Thin" size:70.0f]];
+    [self.tipAmount setTextColor: [UIColor whiteColor]];
     [self.view addSubview:self.tipAmount];
     
     self.chooseAmount = [[UILabel alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - 150, 80, 300, 100)];
     [self.chooseAmount setTextAlignment:UITextAlignmentCenter];
     [self.chooseAmount setText:@"Choose Tip Amount"];
-    [self.chooseAmount setFont:[UIFont systemFontOfSize:30]];
+    [self.chooseAmount setFont:[UIFont fontWithName:@"HelveticaNeue-Thin" size:33.0f]];
+    [self.chooseAmount setTextColor: [UIColor whiteColor]];
     [self.view addSubview:self.chooseAmount];
     
 }
@@ -37,20 +45,32 @@
     [super viewDidLoad];
     
     // Do any additional setup after loading the view.
+       
+    Circle *test2 = [[Circle alloc] init:[UIColor clearColor] withFrame:300];
+    [test2 setFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - 150, [[UIScreen mainScreen] bounds].size.height/2-150, 300, 300)];
+    
+//    CAGradientLayer *gradientMask2 = [CAGradientLayer layer];
+//    gradientMask2.frame = test2.bounds;
+//    gradientMask2.colors = @[(id)[UIColor clearColor].CGColor,
+//                            (id)UIColorFromRGB(0x195f0f).CGColor];
+//    test2.layer.mask = gradientMask2;
+    
+    [self.view addSubview:test2];
+    
     CGRect sliderFrame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - 150, [[UIScreen mainScreen] bounds].size.height/2-150, 300, 300);
     EFCircularSlider* circularSlider = [[EFCircularSlider alloc] initWithFrame:sliderFrame];
     
-    circularSlider.filledColor = [UIColor greenColor];
-    
+    circularSlider.filledColor = [UIColor whiteColor];
+    //circularSlider.filledColor = UIColorFromRGB(0x195f0f);
+    circularSlider.unfilledColor = UIColorFromRGB(0x238415);
+    //[UIColor whiteColor];
+    circularSlider.lineWidth = 7;
+
     [circularSlider addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:circularSlider];
     [circularSlider setCurrentValue:10.0f];
     
     [self setUpInterface];
-    
-    Circle *test = [[Circle alloc] init:[UIColor greenColor] withFrame:40];
-    [test setFrame:CGRectMake(100, 100, 40, 40)];
-    [self.view addSubview:test];
     
 }
 

@@ -29,6 +29,10 @@
 		EB8AB65D1C3DFFB20092D79B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8AB65C1C3DFFB20092D79B /* SystemConfiguration.framework */; };
 		EB8AB65F1C3DFFB80092D79B /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8AB65E1C3DFFB80092D79B /* libz.tbd */; };
 		EB8AB6611C3DFFF60092D79B /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8AB6601C3DFFF60092D79B /* libsqlite3.tbd */; };
+		EBF8CDA81C3EB53C00F864FE /* ExchangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBF8CDA71C3EB53C00F864FE /* ExchangeViewController.m */; };
+		EBF8CDB01C3EB70C00F864FE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBF8CDAF1C3EB70C00F864FE /* UIKit.framework */; };
+		EBF8CDB51C3EB75600F864FE /* EFCircularSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = EBF8CDB21C3EB75600F864FE /* EFCircularSlider.m */; };
+		EBF8CDB61C3EB75600F864FE /* EFCircularTrig.m in Sources */ = {isa = PBXBuildFile; fileRef = EBF8CDB41C3EB75600F864FE /* EFCircularTrig.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +62,13 @@
 		EB8AB65C1C3DFFB20092D79B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		EB8AB65E1C3DFFB80092D79B /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		EB8AB6601C3DFFF60092D79B /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		EBF8CDA61C3EB53C00F864FE /* ExchangeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExchangeViewController.h; sourceTree = "<group>"; };
+		EBF8CDA71C3EB53C00F864FE /* ExchangeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExchangeViewController.m; sourceTree = "<group>"; };
+		EBF8CDAF1C3EB70C00F864FE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		EBF8CDB11C3EB75600F864FE /* EFCircularSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EFCircularSlider.h; sourceTree = "<group>"; };
+		EBF8CDB21C3EB75600F864FE /* EFCircularSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EFCircularSlider.m; sourceTree = "<group>"; };
+		EBF8CDB31C3EB75600F864FE /* EFCircularTrig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EFCircularTrig.h; sourceTree = "<group>"; };
+		EBF8CDB41C3EB75600F864FE /* EFCircularTrig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EFCircularTrig.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBF8CDB01C3EB70C00F864FE /* UIKit.framework in Frameworks */,
 				EB8AB6551C3DFF9E0092D79B /* CoreLocation.framework in Frameworks */,
 				EB8AB6611C3DFFF60092D79B /* libsqlite3.tbd in Frameworks */,
 				EB8AB65F1C3DFFB80092D79B /* libz.tbd in Frameworks */,
@@ -90,6 +102,7 @@
 		EB8AB6131C3DFD070092D79B = {
 			isa = PBXGroup;
 			children = (
+				EBF8CDAF1C3EB70C00F864FE /* UIKit.framework */,
 				EB8AB61E1C3DFD070092D79B /* Tip Tap */,
 				EB8AB61D1C3DFD070092D79B /* Products */,
 			);
@@ -106,8 +119,13 @@
 		EB8AB61E1C3DFD070092D79B /* Tip Tap */ = {
 			isa = PBXGroup;
 			children = (
+				EB8AB6221C3DFD070092D79B /* AppDelegate.h */,
+				EB8AB6231C3DFD070092D79B /* AppDelegate.m */,
 				EB8AB6251C3DFD070092D79B /* ViewController.h */,
 				EB8AB6261C3DFD070092D79B /* ViewController.m */,
+				EBF8CDA61C3EB53C00F864FE /* ExchangeViewController.h */,
+				EBF8CDA71C3EB53C00F864FE /* ExchangeViewController.m */,
+				EBF8CDA31C3EB28800F864FE /* External */,
 				EB8AB61F1C3DFD070092D79B /* Supporting Files */,
 			);
 			path = "Tip Tap";
@@ -116,8 +134,6 @@
 		EB8AB61F1C3DFD070092D79B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				EB8AB6221C3DFD070092D79B /* AppDelegate.h */,
-				EB8AB6231C3DFD070092D79B /* AppDelegate.m */,
 				EB8AB62B1C3DFD070092D79B /* Assets.xcassets */,
 				EB8AB6301C3DFD070092D79B /* Info.plist */,
 				EB8AB6281C3DFD070092D79B /* Main.storyboard */,
@@ -141,6 +157,17 @@
 				EB8AB6201C3DFD070092D79B /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EBF8CDA31C3EB28800F864FE /* External */ = {
+			isa = PBXGroup;
+			children = (
+				EBF8CDB11C3EB75600F864FE /* EFCircularSlider.h */,
+				EBF8CDB21C3EB75600F864FE /* EFCircularSlider.m */,
+				EBF8CDB31C3EB75600F864FE /* EFCircularTrig.h */,
+				EBF8CDB41C3EB75600F864FE /* EFCircularTrig.m */,
+			);
+			name = External;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -214,7 +241,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				EB8AB6271C3DFD070092D79B /* ViewController.m in Sources */,
+				EBF8CDB61C3EB75600F864FE /* EFCircularTrig.m in Sources */,
+				EBF8CDA81C3EB53C00F864FE /* ExchangeViewController.m in Sources */,
 				EB8AB6241C3DFD070092D79B /* AppDelegate.m in Sources */,
+				EBF8CDB51C3EB75600F864FE /* EFCircularSlider.m in Sources */,
 				EB8AB6211C3DFD070092D79B /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

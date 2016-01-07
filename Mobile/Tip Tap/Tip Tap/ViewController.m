@@ -10,6 +10,7 @@
 #import <Foundation/Foundation.h>
 #import <Parse/Parse.h>
 #import "EFCircularSlider.h"
+#import "ExchangeViewController.h"
 
 @interface ViewController()
 
@@ -21,11 +22,25 @@
 @implementation ViewController
 
 - (void)setUpInterface {
+    [self.view setBackgroundColor:[UIColor whiteColor]];
     
+    //Temp
+    UIButton *temp = [UIButton buttonWithType:UIButtonTypeSystem];
+    [temp setFrame:CGRectMake(100, 100, 100, 100)];
+    [temp setTitle:@"click" forState:UIControlStateNormal];
+    [self.view addSubview:temp];
+    [temp addTarget:self action:@selector(moveToNew:) forControlEvents:UIControlEventTouchUpInside];
+    
+}
+
+- (IBAction)moveToNew:(id)sender {
+    ExchangeViewController *v = [[ExchangeViewController alloc] init];
+    [self.navigationController pushViewController:v animated:YES];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setUpInterface];
     PFQuery *query = [PFQuery queryWithClassName:@"User"];
     [query whereKey:@"name" equalTo:@"Sony"];
     [query getFirstObjectInBackgroundWithBlock:^(PFObject * userStats, NSError *error) {

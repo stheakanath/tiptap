@@ -12,6 +12,8 @@
 
 @interface ViewController : UIViewController <CLLocationManagerDelegate>
 
+@property (retain, nonatomic)  UILabel *intro;
+
 -(void)roundButtonDidTap:(UIButton*)tappedButton;
 
 @end

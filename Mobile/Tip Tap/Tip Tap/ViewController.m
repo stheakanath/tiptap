@@ -9,8 +9,10 @@
 #import "ViewController.h"
 #import <Foundation/Foundation.h>
 #import <Parse/Parse.h>
+#import <ParseUI/ParseUI.h>
 #import "EFCircularSlider.h"
 #import "ExchangeViewController.h"
+#import "BackgroundLayer.h"
 #define ROUND_BUTTON_WIDTH_HEIGHT 300
 
 @interface ViewController()
@@ -18,6 +20,7 @@
 @property (nonatomic, retain) CLLocationManager *locationManager;
 @property (nonatomic, retain) NSString *lat;
 @property (nonatomic, retain) NSString *lon;
+@property (nonatomic, retain) PFGeoPoint *geo;
 @property PFUser *user;
 
 @property int requests;
@@ -34,8 +37,22 @@
 }
 
 - (void)setUpInterface {
-    [self.view setBackgroundColor:[UIColor whiteColor]];
     
+    // remove navbar
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
+                                                  forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
+    self.navigationController.navigationBar.translucent = YES;
+    self.navigationController.view.backgroundColor = [UIColor clearColor];
+    self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    
+    // background color
+    [self.view setBackgroundColor:UIColorFromRGB(0xf5f5f5)];
+    
+    CAGradientLayer *bgLayer = [BackgroundLayer greyGradient];
+    bgLayer.frame = self.view.bounds;
+    [self.view.layer insertSublayer:bgLayer atIndex:0];
     //Circular Rotation
     CABasicAnimation *rotate =
     [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
@@ -58,49 +75,62 @@
     
     //half of the width
     temp.layer.cornerRadius = ROUND_BUTTON_WIDTH_HEIGHT/2.0f;
-    temp.layer.borderColor=[UIColor whiteColor].CGColor;
-    temp.layer.borderWidth=.5f;
     [temp.layer addAnimation:rotate
                       forKey:@"myRotationAnimation"];
     [self.view addSubview:temp];
     [temp addTarget:self action:@selector(moveToNew:) forControlEvents:UIControlEventTouchUpInside];
+    self.intro = [[UILabel alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - 150, 500, 300, 100)];
+    [self.intro setTextAlignment:UITextAlignmentCenter];
+    [self.intro setText:@"Tap to Tip"];
+    [self.intro setFont:[UIFont fontWithName:@"HelveticaNeue-Thin" size:33.0f]];
+    [self.intro setTextColor: [UIColor whiteColor]];
+    [self.view addSubview:self.intro];
     
 }
 
 - (IBAction)moveToNew:(id)sender {
     ExchangeViewController *v = [[ExchangeViewController alloc] init];
-    [self.navigationController pushViewController:v animated:YES];
+    CATransition* transition = [CATransition animation];
+    
+    transition.duration = 0.3;
+    transition.type = kCATransitionFade;
+    
+    [[self navigationController].view.layer addAnimation:transition forKey:kCATransition];
+    [[self navigationController] pushViewController:v animated:NO];
+    
+    //[self.navigationController pushViewController:v animated:YES];
 }
+
+
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUpInterface];
     self.requests = 0;
-    //    self.user = [PFUser user];
-    //    [self.user setUsername:@"Sony"];
-    //    [self.user setPassword:@"fuckyouankit"];
-    //    [self.user setEmail:@"ankit@sony.com"];
-    //    [self.user signUp];
-    //    user[@"username"] = @"Sony";
-    //    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-    //        if (succeeded) {
-    //            // The object has been saved.
-    //        } else {
-    //            NSLog(@"%@", error.description);
-    //        }
-    //    }];
+    if (![PFUser currentUser]) {
+        PFLogInViewController *logInController = [[PFLogInViewController alloc] init];
+        logInController.fields = PFLogInFieldsUsernameAndPassword
+        | PFLogInFieldsLogInButton
+        | PFLogInFieldsSignUpButton
+        | PFLogInFieldsPasswordForgotten;
+        logInController.delegate = self;
+        [self presentViewController:logInController animated:YES completion:nil];
+    }
     
+    self.user = [PFUser currentUser];
+    [self.user setObject:[NSNumber numberWithBool:YES] forKey:@"isOnline"];
+    [self.user saveInBackground];
     
-    PFQuery *query = [PFUser query];
-    [query whereKey:@"username" equalTo:@"Sony"];
-    [query getFirstObjectInBackgroundWithBlock:^(PFObject * userStats, NSError *error) {
-        if (!error) {
-            [userStats setObject:[NSNumber numberWithBool:YES] forKey:@"isOnline"];
-            [userStats saveInBackground];
-        } else {
-            NSLog(@"Error: %@", error);
-        }
-    }];
+}
+
+- (void)logInViewController:(PFLogInViewController *)controller
+               didLogInUser:(PFUser *)user {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)logInViewControllerDidCancelLogIn:(PFLogInViewController *)logInController {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -126,15 +156,7 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [self resignFirstResponder];
     [super viewWillDisappear:animated];
-    //    PFQuery *query = [PFQuery queryWithClassName:@"User"];
-    //    [query getFirstObjectInBackgroundWithBlock:^(PFObject * userStats, NSError *error) {
-    //        if (!error) {
-    //            [userStats setObject:[NSNumber numberWithBool:NO] forKey:@"isOnline"];
-    //            [userStats saveInBackground];
-    //        } else {
-    //            NSLog(@"Error: %@", error);
-    //        }
-    //    }];
+
 }
 
 // Need to shake as a whip to sense
@@ -154,7 +176,7 @@
         
         
         NSString *shakeTime = [NSString stringWithFormat:@"%f", [[NSDate date] timeIntervalSince1970]];
-        [PFCloud callFunctionInBackground:@"attemptTransaction" withParameters:@{@"lat": self.lat, @"lng" : self.lon, @"shake_time" : shakeTime, @"tip_amnt" : @"2"} block:^(NSMutableArray *ratings, NSError *error) {
+        [PFCloud callFunctionInBackground:@"attemptTransaction" withParameters:@{@"gps": self.geo, @"lat": self.lat, @"lng" : self.lon, @"shake_time" : shakeTime, @"tip_amnt" : @"2"} block:^(NSMutableArray *ratings, NSError *error) {
             if (!error) {
                 NSLog(@"%@", ratings);
             }
@@ -165,14 +187,9 @@
 }
 
 - (IBAction)endShake:(id)sender {
-    //    [PFCloud callFunctionInBackground:@"setShake" withParameters:@{@"shake": @"false"} block:^(NSNumber *ratings, NSError *error) {
-    //        if (!error) {
-    //            // ratings is 4.5
-    //        }
-    //    }];
+
     self.user[@"isShaking"] = [NSNumber numberWithBool:NO];
-    self.user[@"lat"] = self.lat;
-    self.user[@"lng"] = self.lon;
+
     [self.user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             // The object has been saved.
@@ -198,30 +215,28 @@
 }
 
 
--(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
     UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"There was an error retrieving your location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [errorAlert show];
     NSLog(@"Error: %@", error.description);
 }
 
--(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     CLLocation *crnLoc = [locations lastObject];
+    self.geo = [PFGeoPoint geoPointWithLocation:crnLoc];
     self.lat = [NSString stringWithFormat:@"%.8f", crnLoc.coordinate.latitude];
     self.lon = [NSString stringWithFormat:@"%.8f", crnLoc.coordinate.longitude];
     NSLog(@"Location has been updated.");
     if (self.requests < 3) {
         self.user[@"isShaking"] = [NSNumber numberWithBool:YES];
-        self.user[@"lat"] = self.lat;
-        self.user[@"lng"] = self.lon;
+        self.user[@"gps"] = self.geo;
         [self.user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (succeeded) {
-                // The object has been saved.
-            } else {
+            if (!succeeded) {
                 NSLog(@"%@", error.description);
             }
         }];
     }
-    self.requests+=1;
+    self.requests += 1;
 }
 
 @end

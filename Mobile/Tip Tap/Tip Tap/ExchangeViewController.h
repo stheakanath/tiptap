@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
-@interface ExchangeViewController : UIViewController
+@interface ExchangeViewController : UIViewController <CLLocationManagerDelegate>
 
 @property (retain, nonatomic)  UILabel *tipAmount;
 @property (retain, nonatomic)  UILabel *chooseAmount;

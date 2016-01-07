@@ -8,12 +8,18 @@
 
 #import "ExchangeViewController.h"
 #import "Circle.h"
+#import <Parse/Parse.h>
 #import "EFCircularSlider.h"
 #import "BackgroundLayer.h"
 #import <QuartzCore/QuartzCore.h>
 #import <pop/pop.h>
 
 @interface ExchangeViewController ()
+
+@property (nonatomic, retain) CLLocationManager *locationManager;
+@property (nonatomic, retain) NSString *lat;
+@property (nonatomic, retain) NSString *lon;
+@property PFUser *user;
 
 @end
 
@@ -59,11 +65,55 @@
     
 }
 
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+    if (motion == UIEventSubtypeMotionShake) {
+        // Time is number of seconds since epoch as a double
+        self.user[@"isShaking"] = [NSNumber numberWithBool:YES];
+        self.user[@"lat"] = self.lat;
+        self.user[@"lng"] = self.lon;
+        [self.user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                // The object has been saved.
+            } else {
+                NSLog(@"%@", error.description);
+            }
+        }];
+        
+        
+        NSString *shakeTime = [NSString stringWithFormat:@"%f", [[NSDate date] timeIntervalSince1970]];
+        [PFCloud callFunctionInBackground:@"attemptTransaction" withParameters:@{@"lat": self.lat, @"lng" : self.lon, @"shake_time" : shakeTime, @"tip_amnt" : @"2"} block:^(NSMutableArray *ratings, NSError *error) {
+            if (!error) {
+                NSLog(@"%@", ratings);
+            }
+            
+        }];
+        [self performSelector:@selector(endShake:) withObject:self afterDelay:30.0f];
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound) {
+        // back button was pressed.  We know this is true because self is no longer
+        // in the navigation stack.
+        CATransition *transition = [CATransition animation];
+        [transition setDuration:0.75];
+        [transition setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+        [transition setType:@"oglFade"];
+        [transition setSubtype:kCATransitionFromLeft];
+        [transition setDelegate:self];
+        [self.navigationController.view.layer addAnimation:transition forKey:nil];
+    }
+    
+   // [super viewWillDisappear:animated];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     double width = [[UIScreen mainScreen] bounds].size.width;
     double height = [[UIScreen mainScreen] bounds].size.height;
     
+    [self setNeedsStatusBarAppearanceUpdate];
     // Do any additional setup after loading the view.
     Circle *test2 = [[Circle alloc] init:[UIColor clearColor] withFrame:300];
     [test2 setFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - 150, [[UIScreen mainScreen] bounds].size.height/2-150, 300, 300)];
@@ -115,6 +165,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
 /*
  #pragma mark - Navigation
  

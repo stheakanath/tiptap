@@ -1,0 +1,10 @@
+{
+  "applications": {
+    "Tip Tap": {
+      "applicationId": "irQJP5wBT07xDDZvUFwZQh4oREygqeO4CFhIL7VH"
+    },
+    "_default": {
+      "link": "Tip Tap"
+    }
+  }
+}

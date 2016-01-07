@@ -20,6 +20,16 @@
 @implementation ExchangeViewController
 
 - (void)setUpInterface {
+    
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
+                                                  forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
+    self.navigationController.navigationBar.translucent = YES;
+    self.navigationController.view.backgroundColor = [UIColor clearColor];
+    self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.topItem.title = @"";
+    
     [self.view setBackgroundColor:UIColorFromRGB(0xf5f5f5)];
 
     CAGradientLayer *bgLayer = [BackgroundLayer greyGradient];

@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "20E8270778C4E58C6774E1711E1388370A03E6B2",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "20E8270778C4E58C6774E1711E1388370A03E6B2" : 0,
+    "9F562CCDDF27E41F07D2FA4DB4040939E14E14D1" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "53FD01AF-99A5-45AD-B6C2-C40406F44D30",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "20E8270778C4E58C6774E1711E1388370A03E6B2" : "Tip%20Tap%20Source\/",
+    "9F562CCDDF27E41F07D2FA4DB4040939E14E14D1" : ""
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Tip Tap",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Mobile\/Tip Tap\/Tip Tap.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:stheakanath\/tiptap.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "20E8270778C4E58C6774E1711E1388370A03E6B2"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:stheakanath\/Split.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "9F562CCDDF27E41F07D2FA4DB4040939E14E14D1"
+    }
+  ]
+}

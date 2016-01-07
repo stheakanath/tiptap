@@ -17,6 +17,7 @@
 @property (nonatomic, retain) CLLocationManager *locationManager;
 @property (nonatomic, retain) NSString *lat;
 @property (nonatomic, retain) NSString *lon;
+@property PFUser *user;
 @end
 
 @implementation ViewController
@@ -31,6 +32,7 @@
     [self.view addSubview:temp];
     [temp addTarget:self action:@selector(moveToNew:) forControlEvents:UIControlEventTouchUpInside];
     
+    
 }
 
 - (IBAction)moveToNew:(id)sender {
@@ -41,8 +43,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUpInterface];
-    PFQuery *query = [PFQuery queryWithClassName:@"User"];
-    [query whereKey:@"name" equalTo:@"Sony"];
+//    self.user = [PFUser user];
+//    [self.user setUsername:@"Sony"];
+//    [self.user setPassword:@"fuckyouankit"];
+//    [self.user setEmail:@"ankit@sony.com"];
+//    [self.user signUp];
+//    user[@"username"] = @"Sony";
+//    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+//        if (succeeded) {
+//            // The object has been saved.
+//        } else {
+//            NSLog(@"%@", error.description);
+//        }
+//    }];
+ 
+    
+    PFQuery *query = [PFUser query];
+    [query whereKey:@"username" equalTo:@"Sony"];
     [query getFirstObjectInBackgroundWithBlock:^(PFObject * userStats, NSError *error) {
         if (!error) {
             [userStats setObject:[NSNumber numberWithBool:YES] forKey:@"isOnline"];
@@ -76,15 +93,15 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [self resignFirstResponder];
     [super viewWillDisappear:animated];
-    PFQuery *query = [PFQuery queryWithClassName:@"User"];
-    [query getFirstObjectInBackgroundWithBlock:^(PFObject * userStats, NSError *error) {
-        if (!error) {
-            [userStats setObject:[NSNumber numberWithBool:NO] forKey:@"isOnline"];
-            [userStats saveInBackground];
-        } else {
-            NSLog(@"Error: %@", error);
-        }
-    }];
+//    PFQuery *query = [PFQuery queryWithClassName:@"User"];
+//    [query getFirstObjectInBackgroundWithBlock:^(PFObject * userStats, NSError *error) {
+//        if (!error) {
+//            [userStats setObject:[NSNumber numberWithBool:NO] forKey:@"isOnline"];
+//            [userStats saveInBackground];
+//        } else {
+//            NSLog(@"Error: %@", error);
+//        }
+//    }];
 }
 
 // Need to shake as a whip to sense
@@ -97,7 +114,16 @@
                 // ratings is 4.5
             }
         }];
+        [self performSelector:@selector(endShake:) withObject:self afterDelay:30.0f];
     }
+}
+
+- (IBAction)endShake:(id)sender {
+    [PFCloud callFunctionInBackground:@"setShake" withParameters:@{@"shake": @"true"} block:^(NSNumber *ratings, NSError *error) {
+        if (!error) {
+            // ratings is 4.5
+        }
+    }];
 }
 
 #pragma mark - Location Manager Stuff

@@ -8,6 +8,7 @@
 
 #import "ExchangeViewController.h"
 #import "EFCircularSlider.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface ExchangeViewController ()
 
@@ -17,13 +18,21 @@
 
 - (void)setUpInterface {
     [self.view setBackgroundColor:[UIColor whiteColor]];
-    self.tipAmount = [[UILabel alloc] initWithFrame:CGRectMake(100, 500, 100, 100)];
-    [self.tipAmount setText:@"hi"];
+    self.tipAmount = [[UILabel alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - 150, [[UIScreen mainScreen] bounds].size.height/2 - 150, 300, 300)];
+    [self.tipAmount setTextAlignment:UITextAlignmentCenter];
+    [self.tipAmount setText:@"0"];
+    [self.tipAmount setFont:[UIFont systemFontOfSize:60]];
     [self.view addSubview:self.tipAmount];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    CATransition *animation = [CATransition animation];
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    animation.type = kCATransitionFade;
+    animation.duration = 0.75;
+    [_tipAmount.layer addAnimation:animation forKey:@"kCATransitionFade"];
 
     // Do any additional setup after loading the view.
     CGRect sliderFrame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - 150, [[UIScreen mainScreen] bounds].size.height/2-150, 300, 300);
@@ -38,8 +47,9 @@
 
 -(void)valueChanged:(EFCircularSlider*)slider {
     NSLog(@"sdfdsf\n");
-    NSLog(@"value %d", slider.currentValue);
-    _tipAmount.text = [NSString stringWithFormat:@"%.02f", slider.currentValue ];
+    NSLog(@"value %f", slider.currentValue);
+    
+    _tipAmount.text = [NSString stringWithFormat:@"$%d", (int) (ceil(slider.currentValue) / 10.)];
 }
 
 - (void)didReceiveMemoryWarning {

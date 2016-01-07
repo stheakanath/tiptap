@@ -17,8 +17,7 @@
 @interface ExchangeViewController ()
 
 @property (nonatomic, retain) CLLocationManager *locationManager;
-@property (nonatomic, retain) NSString *lat;
-@property (nonatomic, retain) NSString *lon;
+@property (nonatomic, retain) PFGeoPoint *geo;
 @property PFUser *user;
 
 @end
@@ -43,21 +42,21 @@
     [self.view.layer insertSublayer:bgLayer atIndex:0];
     
     self.tipAmount = [[UILabel alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - 150, [[UIScreen mainScreen] bounds].size.height/2 - 150, 300, 300)];
-    [self.tipAmount setTextAlignment:UITextAlignmentCenter];
+    [self.tipAmount setTextAlignment:NSTextAlignmentCenter];
     [self.tipAmount setText:@"$0"];
     [self.tipAmount setFont:[UIFont fontWithName:@"HelveticaNeue-Thin" size:70.0f]];
     [self.tipAmount setTextColor: [UIColor whiteColor]];
     [self.view addSubview:self.tipAmount];
     
     self.chooseAmount = [[UILabel alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - 150, 80, 300, 100)];
-    [self.chooseAmount setTextAlignment:UITextAlignmentCenter];
+    [self.chooseAmount setTextAlignment:NSTextAlignmentCenter];
     [self.chooseAmount setText:@"Choose Tip Amount"];
     [self.chooseAmount setFont:[UIFont fontWithName:@"HelveticaNeue-Thin" size:33.0f]];
     [self.chooseAmount setTextColor: [UIColor whiteColor]];
     [self.view addSubview:self.chooseAmount];
     
     self.tapToTip = [[UILabel alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - 150, 500, 300, 100)];
-    [self.tapToTip setTextAlignment:UITextAlignmentCenter];
+    [self.tapToTip setTextAlignment:NSTextAlignmentCenter];
     [self.tapToTip setText:@"Tap to tip"];
     [self.tapToTip setFont:[UIFont fontWithName:@"HelveticaNeue-Thin" size:33.0f]];
     [self.tapToTip setTextColor: [UIColor whiteColor]];
@@ -65,27 +64,26 @@
     
 }
 
+- (void) setGeo1:(PFGeoPoint*)geo1 {
+    self.geo = geo1;
+}
+
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
     if (motion == UIEventSubtypeMotionShake) {
         // Time is number of seconds since epoch as a double
         self.user[@"isShaking"] = [NSNumber numberWithBool:YES];
-        self.user[@"lat"] = self.lat;
-        self.user[@"lng"] = self.lon;
+        self.user[@"gps"] = self.geo;
         [self.user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (succeeded) {
-                // The object has been saved.
-            } else {
+            if (!succeeded) {
                 NSLog(@"%@", error.description);
             }
         }];
         
-        
         NSString *shakeTime = [NSString stringWithFormat:@"%f", [[NSDate date] timeIntervalSince1970]];
-        [PFCloud callFunctionInBackground:@"attemptTransaction" withParameters:@{@"lat": self.lat, @"lng" : self.lon, @"shake_time" : shakeTime, @"tip_amnt" : @"2"} block:^(NSMutableArray *ratings, NSError *error) {
+        [PFCloud callFunctionInBackground:@"attemptTransaction" withParameters:@{@"username" : self.user[@"username"], @"gps": self.geo, @"shake_time" : shakeTime, @"tip_amnt" : [_tipAmount.text substringFromIndex:1]} block:^(NSMutableArray *ratings, NSError *error) {
             if (!error) {
                 NSLog(@"%@", ratings);
             }
-            
         }];
         [self performSelector:@selector(endShake:) withObject:self afterDelay:30.0f];
     }
@@ -110,19 +108,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    double width = [[UIScreen mainScreen] bounds].size.width;
-    double height = [[UIScreen mainScreen] bounds].size.height;
-    
+    self.user = [PFUser currentUser];
     [self setNeedsStatusBarAppearanceUpdate];
     // Do any additional setup after loading the view.
     Circle *test2 = [[Circle alloc] init:[UIColor clearColor] withFrame:300];
     [test2 setFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - 150, [[UIScreen mainScreen] bounds].size.height/2-150, 300, 300)];
-    
-//    CAGradientLayer *gradientMask2 = [CAGradientLayer layer];
-//    gradientMask2.frame = test2.bounds;
-//    gradientMask2.colors = @[(id)[UIColor clearColor].CGColor,
-//                            (id)UIColorFromRGB(0x195f0f).CGColor];
-//    test2.layer.mask = gradientMask2;
+
     
     [self.view addSubview:test2];
     
@@ -144,12 +135,8 @@
 }
 
 -(void)valueChanged:(EFCircularSlider*)slider {
-    NSLog(@"slider value %d\n", (int) (ceil(slider.currentValue) / 10.));
     int tip = [[_tipAmount.text substringFromIndex:1] intValue];
-    NSLog(@"tipAmount %d\n", tip);
-    
     if ((int) (ceil(slider.currentValue) / 10.) != tip) {
-        NSLog(@"yo\n");
         CATransition *animation = [CATransition animation];
         animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
         animation.type = kCATransitionFade;
@@ -157,27 +144,10 @@
         [_tipAmount.layer addAnimation:animation forKey:@"kCATransitionFade"];
         _tipAmount.text = [NSString stringWithFormat:@"$%d", (int) (ceil(slider.currentValue) / 10.)];
     }
-    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
-- (UIStatusBarStyle)preferredStatusBarStyle
-{
+- (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
 }
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
 @end

@@ -18,8 +18,6 @@
 @interface ViewController()
 
 @property (nonatomic, retain) CLLocationManager *locationManager;
-@property (nonatomic, retain) NSString *lat;
-@property (nonatomic, retain) NSString *lon;
 @property (nonatomic, retain) PFGeoPoint *geo;
 @property PFUser *user;
 
@@ -31,16 +29,11 @@
 @implementation ViewController
 
 -(void)roundButtonDidTap:(UIButton*)tappedButton{
-    
     NSLog(@"roundButtonDidTap Method Called");
-    
 }
 
 - (void)setUpInterface {
-    
-    // remove navbar
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
-                                                  forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = [UIImage new];
     self.navigationController.navigationBar.translucent = YES;
     self.navigationController.view.backgroundColor = [UIColor clearColor];
@@ -53,6 +46,7 @@
     CAGradientLayer *bgLayer = [BackgroundLayer greyGradient];
     bgLayer.frame = self.view.bounds;
     [self.view.layer insertSublayer:bgLayer atIndex:0];
+    
     //Circular Rotation
     CABasicAnimation *rotate =
     [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
@@ -75,8 +69,7 @@
     
     //half of the width
     temp.layer.cornerRadius = ROUND_BUTTON_WIDTH_HEIGHT/2.0f;
-    [temp.layer addAnimation:rotate
-                      forKey:@"myRotationAnimation"];
+    [temp.layer addAnimation:rotate forKey:@"myRotationAnimation"];
     [self.view addSubview:temp];
     [temp addTarget:self action:@selector(moveToNew:) forControlEvents:UIControlEventTouchUpInside];
     self.intro = [[UILabel alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - 150, 500, 300, 100)];
@@ -85,11 +78,11 @@
     [self.intro setFont:[UIFont fontWithName:@"HelveticaNeue-Thin" size:33.0f]];
     [self.intro setTextColor: [UIColor whiteColor]];
     [self.view addSubview:self.intro];
-    
 }
 
 - (IBAction)moveToNew:(id)sender {
     ExchangeViewController *v = [[ExchangeViewController alloc] init];
+    [v setGeo1:self.geo];
     CATransition* transition = [CATransition animation];
     
     transition.duration = 0.3;
@@ -97,12 +90,7 @@
     
     [[self navigationController].view.layer addAnimation:transition forKey:kCATransition];
     [[self navigationController] pushViewController:v animated:NO];
-    
-    //[self.navigationController pushViewController:v animated:YES];
 }
-
-
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -110,10 +98,7 @@
     self.requests = 0;
     if (![PFUser currentUser]) {
         PFLogInViewController *logInController = [[PFLogInViewController alloc] init];
-        logInController.fields = PFLogInFieldsUsernameAndPassword
-        | PFLogInFieldsLogInButton
-        | PFLogInFieldsSignUpButton
-        | PFLogInFieldsPasswordForgotten;
+        logInController.fields = PFLogInFieldsUsernameAndPassword | PFLogInFieldsLogInButton | PFLogInFieldsSignUpButton | PFLogInFieldsPasswordForgotten;
         logInController.delegate = self;
         [self presentViewController:logInController animated:YES completion:nil];
     }
@@ -121,11 +106,9 @@
     self.user = [PFUser currentUser];
     [self.user setObject:[NSNumber numberWithBool:YES] forKey:@"isOnline"];
     [self.user saveInBackground];
-    
 }
 
-- (void)logInViewController:(PFLogInViewController *)controller
-               didLogInUser:(PFUser *)user {
+- (void)logInViewController:(PFLogInViewController *)controller didLogInUser:(PFUser *)user {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -164,38 +147,29 @@
     if (motion == UIEventSubtypeMotionShake) {
         // Time is number of seconds since epoch as a double
         self.user[@"isShaking"] = [NSNumber numberWithBool:YES];
-        self.user[@"lat"] = self.lat;
-        self.user[@"lng"] = self.lon;
+        self.user[@"gps"] = self.geo;
+        self.user[@"shakeTime"] = [NSString stringWithFormat:@"%f", [[NSDate date] timeIntervalSince1970]];
         [self.user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (succeeded) {
-                // The object has been saved.
-            } else {
+            if (!succeeded) {
                 NSLog(@"%@", error.description);
             }
         }];
         
-        
-        NSString *shakeTime = [NSString stringWithFormat:@"%f", [[NSDate date] timeIntervalSince1970]];
-        [PFCloud callFunctionInBackground:@"attemptTransaction" withParameters:@{@"gps": self.geo, @"lat": self.lat, @"lng" : self.lon, @"shake_time" : shakeTime, @"tip_amnt" : @"2"} block:^(NSMutableArray *ratings, NSError *error) {
-            if (!error) {
-                NSLog(@"%@", ratings);
-            }
-            
-        }];
+        NSLog(@"%@", self.geo);
+//        [PFCloud callFunctionInBackground:@"attemptTransaction" withParameters:@{@"username" : self.user[@"username"], @"gps": self.geo, @"shake_time" : shakeTime, @"tip_amnt" : @"-1"} block:^(NSMutableArray *ratings, NSError *error) {
+//            if (!error) {
+//                NSLog(@"%@", ratings);
+//            }
+//        }];
         [self performSelector:@selector(endShake:) withObject:self afterDelay:30.0f];
     }
 }
 
 - (IBAction)endShake:(id)sender {
-
     self.user[@"isShaking"] = [NSNumber numberWithBool:NO];
-
     [self.user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (succeeded) {
-            // The object has been saved.
-        } else {
+        if (!succeeded)
             NSLog(@"%@", error.description);
-        }
     }];
 }
 
@@ -224,8 +198,6 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     CLLocation *crnLoc = [locations lastObject];
     self.geo = [PFGeoPoint geoPointWithLocation:crnLoc];
-    self.lat = [NSString stringWithFormat:@"%.8f", crnLoc.coordinate.latitude];
-    self.lon = [NSString stringWithFormat:@"%.8f", crnLoc.coordinate.longitude];
     NSLog(@"Location has been updated.");
     if (self.requests < 3) {
         self.user[@"isShaking"] = [NSNumber numberWithBool:YES];

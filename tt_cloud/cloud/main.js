@@ -54,7 +54,7 @@ Parse.Cloud.define("attemptTransaction", function(request, response) {
 });
 
 Parse.Cloud.define("setShake", function(request, response) {
-	var p_query = Parse.Query("Parse.User");
+	var p_query = new Parse.Query("Parse.User");
 	var shake_setting = false;
 	if (request.params.shake == "true") {
 		shake_setting = true;
@@ -68,6 +68,7 @@ Parse.Cloud.define("setShake", function(request, response) {
 				var user = results[0];
 				user.set("isShaking", shake_setting);
 				user.save();
+				response.success();
 			}
 		}
 	})

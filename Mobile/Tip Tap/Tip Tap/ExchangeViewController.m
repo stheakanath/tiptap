@@ -24,7 +24,7 @@
     [self.tipAmount setFont:[UIFont systemFontOfSize:60]];
     [self.view addSubview:self.tipAmount];
     
-    self.chooseAmount = [[UILabel alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - 150, 50, 300, 100)];
+    self.chooseAmount = [[UILabel alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - 150, 80, 300, 100)];
     [self.chooseAmount setTextAlignment:UITextAlignmentCenter];
     [self.chooseAmount setText:@"Choose Tip Amount"];
     [self.chooseAmount setFont:[UIFont systemFontOfSize:30]];
@@ -38,10 +38,13 @@
     // Do any additional setup after loading the view.
     CGRect sliderFrame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - 150, [[UIScreen mainScreen] bounds].size.height/2-150, 300, 300);
     EFCircularSlider* circularSlider = [[EFCircularSlider alloc] initWithFrame:sliderFrame];
+    
+    circularSlider.filledColor = [UIColor greenColor];
+    
     [circularSlider addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:circularSlider];
-    [circularSlider setCurrentValue:10.0f]
-    ;
+    [circularSlider setCurrentValue:10.0f];
+    
     [self setUpInterface];
     
 }

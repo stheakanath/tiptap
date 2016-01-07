@@ -31,6 +31,7 @@
 		EBF8CDBC1C3ED85700F864FE /* Circle.m in Sources */ = {isa = PBXBuildFile; fileRef = EBF8CDBB1C3ED85700F864FE /* Circle.m */; };
 		EBF8CDBE1C3ED99200F864FE /* tiptap_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = EBF8CDBD1C3ED99200F864FE /* tiptap_icon.png */; };
 		EBF8CDC31C3F165300F864FE /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = EBF8CDC21C3F165300F864FE /* logo.png */; };
+		EBF8CDC51C3F1B8800F864FE /* lol4.png in Resources */ = {isa = PBXBuildFile; fileRef = EBF8CDC41C3F1B8800F864FE /* lol4.png */; };
 		F4EBB0B9F29B9136E6660715 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 99A789438E78CFED7B2C5E41 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +72,7 @@
 		EBF8CDBB1C3ED85700F864FE /* Circle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Circle.m; sourceTree = "<group>"; };
 		EBF8CDBD1C3ED99200F864FE /* tiptap_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tiptap_icon.png; sourceTree = "<group>"; };
 		EBF8CDC21C3F165300F864FE /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		EBF8CDC41C3F1B8800F864FE /* lol4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lol4.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +178,7 @@
 		EBF8CDA31C3EB28800F864FE /* External */ = {
 			isa = PBXGroup;
 			children = (
+				EBF8CDC41C3F1B8800F864FE /* lol4.png */,
 				EBF8CDBD1C3ED99200F864FE /* tiptap_icon.png */,
 				EBF8CDC21C3F165300F864FE /* logo.png */,
 				EBF8CDB11C3EB75600F864FE /* EFCircularSlider.h */,
@@ -249,6 +252,7 @@
 			files = (
 				EBF8CDBE1C3ED99200F864FE /* tiptap_icon.png in Resources */,
 				EBF8CDC31C3F165300F864FE /* logo.png in Resources */,
+				EBF8CDC51C3F1B8800F864FE /* lol4.png in Resources */,
 				EB8AB62F1C3DFD070092D79B /* LaunchScreen.storyboard in Resources */,
 				EB8AB62C1C3DFD070092D79B /* Assets.xcassets in Resources */,
 				EB8AB62A1C3DFD070092D79B /* Main.storyboard in Resources */,

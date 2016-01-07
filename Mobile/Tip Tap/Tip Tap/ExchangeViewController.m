@@ -55,9 +55,15 @@
     [self.chooseAmount setTextColor: [UIColor whiteColor]];
     [self.view addSubview:self.chooseAmount];
     
-    self.tapToTip = [[UILabel alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - 150, 500, 300, 100)];
-    [self.tapToTip setTextAlignment:NSTextAlignmentCenter];
-    [self.tapToTip setText:@"Tap to tip"];
+    UIImage *image = [UIImage imageNamed:@"lol4.png"];
+    //    UIImage *image = [UIImage animatedImageNamed:@"lol" duration:3.0f];
+    self.instruction = [[UIImageView alloc] initWithFrame:CGRectMake(45, 510, image.size.width/15, image.size.height/15)];
+    self.instruction.image = image;
+    [self.view addSubview:self.instruction];
+    
+    self.tapToTip = [[UILabel alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - 105, 510, 300, 100)];
+    [self.tapToTip setTextAlignment:UITextAlignmentCenter];
+    [self.tapToTip setText:@"Shake to tip!"];
     [self.tapToTip setFont:[UIFont fontWithName:@"HelveticaNeue-Thin" size:33.0f]];
     [self.tapToTip setTextColor: [UIColor whiteColor]];
     [self.view addSubview:self.tapToTip];

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8E456E391C3ED0F800CEDAD8 /* tiptap_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E456E381C3ED0F800CEDAD8 /* tiptap_icon.png */; };
 		EB8AB6211C3DFD070092D79B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8AB6201C3DFD070092D79B /* main.m */; };
 		EB8AB6241C3DFD070092D79B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8AB6231C3DFD070092D79B /* AppDelegate.m */; };
 		EB8AB6271C3DFD070092D79B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8AB6261C3DFD070092D79B /* ViewController.m */; };
@@ -39,6 +40,7 @@
 /* Begin PBXFileReference section */
 		138464EF0EFBD12DC8690ABA /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		5C8103122300599DE81C9CE5 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		8E456E381C3ED0F800CEDAD8 /* tiptap_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tiptap_icon.png; path = ../../../../Downloads/tiptap_icon.png; sourceTree = "<group>"; };
 		99A789438E78CFED7B2C5E41 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB8AB61C1C3DFD070092D79B /* Tip Tap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tip Tap.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB8AB6201C3DFD070092D79B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 				EB8AB6221C3DFD070092D79B /* AppDelegate.h */,
 				EB8AB6231C3DFD070092D79B /* AppDelegate.m */,
 				EB8AB6251C3DFD070092D79B /* ViewController.h */,
+				8E456E381C3ED0F800CEDAD8 /* tiptap_icon.png */,
 				EB8AB6261C3DFD070092D79B /* ViewController.m */,
 				EBF8CDA61C3EB53C00F864FE /* ExchangeViewController.h */,
 				EBF8CDA71C3EB53C00F864FE /* ExchangeViewController.m */,
@@ -254,6 +257,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E456E391C3ED0F800CEDAD8 /* tiptap_icon.png in Resources */,
 				EB8AB62F1C3DFD070092D79B /* LaunchScreen.storyboard in Resources */,
 				EB8AB62C1C3DFD070092D79B /* Assets.xcassets in Resources */,
 				EB8AB62A1C3DFD070092D79B /* Main.storyboard in Resources */,

@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import <QuartzCore/QuartzCore.h>
 
 @interface ViewController : UIViewController <CLLocationManagerDelegate>
+-(void)roundButtonDidTap:(UIButton*)tappedButton;
 
 @end
 

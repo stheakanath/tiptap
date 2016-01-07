@@ -20,17 +20,11 @@
 @property (nonatomic, retain) CLLocationManager *locationManager;
 @property (nonatomic, retain) PFGeoPoint *geo;
 @property PFUser *user;
-
 @property int requests;
 
 @end
 
-
 @implementation ViewController
-
--(void)roundButtonDidTap:(UIButton*)tappedButton{
-    NSLog(@"roundButtonDidTap Method Called");
-}
 
 - (void)setUpInterface {
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
@@ -52,14 +46,12 @@
     [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
     rotate.byValue = @(M_PI*2); // Change to - angle for counter clockwise rotation
     rotate.duration = 3.0;
-    rotate.timingFunction =
-    [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    rotate.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     
     //Temp button
     UIButton *temp = [UIButton buttonWithType:UIButtonTypeCustom];
     
     [temp setImage:[UIImage imageNamed:@"tiptap_icon.png"] forState:UIControlStateNormal];
-    [temp addTarget:self action:@selector(roundButtonDidTap:) forControlEvents:UIControlEventTouchUpInside];
     
     //width and height should be same value
     temp.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - (ROUND_BUTTON_WIDTH_HEIGHT/2), [[UIScreen mainScreen] bounds].size.height/2 - (ROUND_BUTTON_WIDTH_HEIGHT/2), ROUND_BUTTON_WIDTH_HEIGHT, ROUND_BUTTON_WIDTH_HEIGHT);
@@ -73,7 +65,7 @@
     [self.view addSubview:temp];
     [temp addTarget:self action:@selector(moveToNew:) forControlEvents:UIControlEventTouchUpInside];
     self.intro = [[UILabel alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - 150, 500, 300, 100)];
-    [self.intro setTextAlignment:UITextAlignmentCenter];
+    [self.intro setTextAlignment:NSTextAlignmentCenter];
     [self.intro setText:@"Tap to Tip"];
     [self.intro setFont:[UIFont fontWithName:@"HelveticaNeue-Thin" size:33.0f]];
     [self.intro setTextColor: [UIColor whiteColor]];
@@ -100,7 +92,14 @@
         PFLogInViewController *logInController = [[PFLogInViewController alloc] init];
         logInController.fields = PFLogInFieldsUsernameAndPassword | PFLogInFieldsLogInButton | PFLogInFieldsSignUpButton | PFLogInFieldsPasswordForgotten;
         logInController.delegate = self;
+        UIImageView *img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo.png"]];
+        img.contentMode = UIViewContentModeScaleAspectFit;
+        logInController.logInView.logo = img;
         [self presentViewController:logInController animated:YES completion:nil];
+        CAGradientLayer *bgLayer = [BackgroundLayer greyGradient];
+        bgLayer.frame = self.view.bounds;
+        [logInController.view.layer insertSublayer:bgLayer atIndex:0];
+
     }
     
     self.user = [PFUser currentUser];

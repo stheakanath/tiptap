@@ -30,6 +30,7 @@
 		EBF8CDB61C3EB75600F864FE /* EFCircularTrig.m in Sources */ = {isa = PBXBuildFile; fileRef = EBF8CDB41C3EB75600F864FE /* EFCircularTrig.m */; };
 		EBF8CDBC1C3ED85700F864FE /* Circle.m in Sources */ = {isa = PBXBuildFile; fileRef = EBF8CDBB1C3ED85700F864FE /* Circle.m */; };
 		EBF8CDBE1C3ED99200F864FE /* tiptap_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = EBF8CDBD1C3ED99200F864FE /* tiptap_icon.png */; };
+		EBF8CDC31C3F165300F864FE /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = EBF8CDC21C3F165300F864FE /* logo.png */; };
 		F4EBB0B9F29B9136E6660715 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 99A789438E78CFED7B2C5E41 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -69,6 +70,7 @@
 		EBF8CDBA1C3ED85700F864FE /* Circle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Circle.h; sourceTree = "<group>"; };
 		EBF8CDBB1C3ED85700F864FE /* Circle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Circle.m; sourceTree = "<group>"; };
 		EBF8CDBD1C3ED99200F864FE /* tiptap_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tiptap_icon.png; sourceTree = "<group>"; };
+		EBF8CDC21C3F165300F864FE /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,7 +144,6 @@
 				20BBD0091C3EE047000BECCE /* BackgroundLayer.m */,
 				EBF8CDBA1C3ED85700F864FE /* Circle.h */,
 				EBF8CDBB1C3ED85700F864FE /* Circle.m */,
-				EBF8CDBD1C3ED99200F864FE /* tiptap_icon.png */,
 				EBF8CDA31C3EB28800F864FE /* External */,
 				EB8AB61F1C3DFD070092D79B /* Supporting Files */,
 			);
@@ -175,6 +176,8 @@
 		EBF8CDA31C3EB28800F864FE /* External */ = {
 			isa = PBXGroup;
 			children = (
+				EBF8CDBD1C3ED99200F864FE /* tiptap_icon.png */,
+				EBF8CDC21C3F165300F864FE /* logo.png */,
 				EBF8CDB11C3EB75600F864FE /* EFCircularSlider.h */,
 				EBF8CDB21C3EB75600F864FE /* EFCircularSlider.m */,
 				EBF8CDB31C3EB75600F864FE /* EFCircularTrig.h */,
@@ -217,6 +220,7 @@
 				TargetAttributes = {
 					EB8AB61B1C3DFD070092D79B = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = SNE84GN9W7;
 					};
 				};
 			};
@@ -244,6 +248,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EBF8CDBE1C3ED99200F864FE /* tiptap_icon.png in Resources */,
+				EBF8CDC31C3F165300F864FE /* logo.png in Resources */,
 				EB8AB62F1C3DFD070092D79B /* LaunchScreen.storyboard in Resources */,
 				EB8AB62C1C3DFD070092D79B /* Assets.xcassets in Resources */,
 				EB8AB62A1C3DFD070092D79B /* Main.storyboard in Resources */,
@@ -425,6 +430,8 @@
 			baseConfigurationReference = 5C8103122300599DE81C9CE5 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Parse",
@@ -436,6 +443,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.sonytheakanath.Tip-Tap";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Debug;
@@ -445,6 +453,8 @@
 			baseConfigurationReference = 138464EF0EFBD12DC8690ABA /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Parse",
@@ -456,6 +466,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.sonytheakanath.Tip-Tap";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Release;

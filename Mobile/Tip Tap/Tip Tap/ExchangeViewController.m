@@ -78,15 +78,76 @@
                 NSLog(@"%@", error.description);
             }
         }];
-        
+
         NSString *shakeTime = [NSString stringWithFormat:@"%f", [[NSDate date] timeIntervalSince1970]];
-        [PFCloud callFunctionInBackground:@"attemptTransaction" withParameters:@{@"username" : self.user[@"username"], @"gps": self.geo, @"shake_time" : shakeTime, @"tip_amnt" : [_tipAmount.text substringFromIndex:1]} block:^(NSMutableArray *ratings, NSError *error) {
+        [PFCloud callFunctionInBackground:@"attemptTransaction" withParameters:@{@"username" : self.user[@"username"], @"gps": self.geo, @"shake_time" : shakeTime, @"tip_amnt" : [_tipAmount.text substringFromIndex:1]} block:^(PFObject *returnedUser, NSError *error) {
             if (!error) {
-                NSLog(@"%@", ratings);
+                int value = [[_tipAmount.text substringFromIndex:1] intValue];
+                [self executeTransfer:[NSNumber numberWithInt:value] medium:@"balance" fromAccountID:self.user[@"nessieId"] toAccountID:returnedUser[@"nessieId"] apiKey:@"3bdaaa3c82010b88c585c1e966c8d6f8"];
             }
         }];
         [self performSelector:@selector(endShake:) withObject:self afterDelay:30.0f];
     }
+}
+
+- (void)executeTransfer:(NSNumber*)amount medium:(NSString*)medium fromAccountID:(NSString*)fromAccountID toAccountID:(NSString*)toAccountID apiKey:(NSString*)apiKey {
+    
+    //Get Transaction Timestamp
+    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MM/dd/yy hh:mm:ss"];
+    
+    //Create JSON
+    NSDictionary *dictionary = @{ @"medium" : medium, @"payee_id": toAccountID,
+                                  @"amount": amount, @"transaction_date": [dateFormatter stringFromDate:[NSDate date]]};
+    NSError *error = nil;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dictionary options:0 error:&error];
+    
+    //Create default configuration
+    NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration: defaultConfigObject delegate: nil delegateQueue: [NSOperationQueue mainQueue]];
+    
+    //Create NSURL
+    NSString * urlString = [NSString stringWithFormat:@"http://api.reimaginebanking.com/accounts/%@/transfers?key=%@", fromAccountID, apiKey];
+    NSURL * url = [NSURL URLWithString:urlString];
+    
+    //Create url Request
+    NSMutableURLRequest * urlRequest = [NSMutableURLRequest requestWithURL:url];
+    [urlRequest setHTTPMethod:@"POST"];
+    [urlRequest setHTTPBody:jsonData];
+    [urlRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    //Create SessionDataTask
+    NSURLSessionDataTask * dataTask =[defaultSession dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+            NSLog(@"Response:%@ %@\n", response, error);
+            if(error == nil)
+                                                           {
+                                                               NSString * text = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+                                                               NSLog(@"Data = %@",text);
+                                                               [self executeAnimationToSuccess];
+                                                           }
+                                                           
+                                                       }];
+    //Run Request
+    [dataTask resume];
+    
+}
+
+- (void) executeAnimationToSuccess {
+    //
+    //
+    //
+    // HELLO WORLD
+    //
+    //
+    
+}
+
+- (IBAction)endShake:(id)sender {
+    self.user[@"isShaking"] = [NSNumber numberWithBool:NO];
+    [self.user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (!succeeded)
+            NSLog(@"%@", error.description);
+    }];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

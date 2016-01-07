@@ -19,6 +19,9 @@
 @property (nonatomic, retain) NSString *lat;
 @property (nonatomic, retain) NSString *lon;
 @property PFUser *user;
+
+@property int requests;
+
 @end
 
 
@@ -58,7 +61,7 @@
     temp.layer.borderColor=[UIColor whiteColor].CGColor;
     temp.layer.borderWidth=.5f;
     [temp.layer addAnimation:rotate
-                            forKey:@"myRotationAnimation"];
+                      forKey:@"myRotationAnimation"];
     [self.view addSubview:temp];
     [temp addTarget:self action:@selector(moveToNew:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -72,20 +75,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUpInterface];
-//    self.user = [PFUser user];
-//    [self.user setUsername:@"Sony"];
-//    [self.user setPassword:@"fuckyouankit"];
-//    [self.user setEmail:@"ankit@sony.com"];
-//    [self.user signUp];
-//    user[@"username"] = @"Sony";
-//    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-//        if (succeeded) {
-//            // The object has been saved.
-//        } else {
-//            NSLog(@"%@", error.description);
-//        }
-//    }];
- 
+    self.requests = 0;
+    //    self.user = [PFUser user];
+    //    [self.user setUsername:@"Sony"];
+    //    [self.user setPassword:@"fuckyouankit"];
+    //    [self.user setEmail:@"ankit@sony.com"];
+    //    [self.user signUp];
+    //    user[@"username"] = @"Sony";
+    //    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    //        if (succeeded) {
+    //            // The object has been saved.
+    //        } else {
+    //            NSLog(@"%@", error.description);
+    //        }
+    //    }];
+    
     
     PFQuery *query = [PFUser query];
     [query whereKey:@"username" equalTo:@"Sony"];
@@ -122,15 +126,15 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [self resignFirstResponder];
     [super viewWillDisappear:animated];
-//    PFQuery *query = [PFQuery queryWithClassName:@"User"];
-//    [query getFirstObjectInBackgroundWithBlock:^(PFObject * userStats, NSError *error) {
-//        if (!error) {
-//            [userStats setObject:[NSNumber numberWithBool:NO] forKey:@"isOnline"];
-//            [userStats saveInBackground];
-//        } else {
-//            NSLog(@"Error: %@", error);
-//        }
-//    }];
+    //    PFQuery *query = [PFQuery queryWithClassName:@"User"];
+    //    [query getFirstObjectInBackgroundWithBlock:^(PFObject * userStats, NSError *error) {
+    //        if (!error) {
+    //            [userStats setObject:[NSNumber numberWithBool:NO] forKey:@"isOnline"];
+    //            [userStats saveInBackground];
+    //        } else {
+    //            NSLog(@"Error: %@", error);
+    //        }
+    //    }];
 }
 
 // Need to shake as a whip to sense
@@ -138,29 +142,42 @@
     if (motion == UIEventSubtypeMotionShake) {
         // Time is number of seconds since epoch as a double
         self.user[@"isShaking"] = [NSNumber numberWithBool:YES];
+        self.user[@"lat"] = self.lat;
+        self.user[@"lng"] = self.lon;
         [self.user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                    if (succeeded) {
-                        // The object has been saved.
-                    } else {
-                        NSLog(@"%@", error.description);
-                    }
-                }];
-        
-
-        NSString *shakeTime = [NSString stringWithFormat:@"%f", [[NSDate date] timeIntervalSince1970]];
-        [PFCloud callFunctionInBackground:@"attemptTransaction" withParameters:@{@"lat": self.lat, @"lng" : self.lon, @"shake_time" : shakeTime, @"tip_amnt" : @"2"} block:^(NSNumber *ratings, NSError *error) {
-            if (!error) {
-                // ratings is 4.5
+            if (succeeded) {
+                // The object has been saved.
+            } else {
+                NSLog(@"%@", error.description);
             }
+        }];
+        
+        
+        NSString *shakeTime = [NSString stringWithFormat:@"%f", [[NSDate date] timeIntervalSince1970]];
+        [PFCloud callFunctionInBackground:@"attemptTransaction" withParameters:@{@"lat": self.lat, @"lng" : self.lon, @"shake_time" : shakeTime, @"tip_amnt" : @"2"} block:^(NSMutableArray *ratings, NSError *error) {
+            if (!error) {
+                NSLog(@"%@", ratings);
+            }
+            
         }];
         [self performSelector:@selector(endShake:) withObject:self afterDelay:30.0f];
     }
 }
 
 - (IBAction)endShake:(id)sender {
-    [PFCloud callFunctionInBackground:@"setShake" withParameters:@{@"shake": @"false"} block:^(NSNumber *ratings, NSError *error) {
-        if (!error) {
-            // ratings is 4.5
+    //    [PFCloud callFunctionInBackground:@"setShake" withParameters:@{@"shake": @"false"} block:^(NSNumber *ratings, NSError *error) {
+    //        if (!error) {
+    //            // ratings is 4.5
+    //        }
+    //    }];
+    self.user[@"isShaking"] = [NSNumber numberWithBool:NO];
+    self.user[@"lat"] = self.lat;
+    self.user[@"lng"] = self.lon;
+    [self.user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            // The object has been saved.
+        } else {
+            NSLog(@"%@", error.description);
         }
     }];
 }
@@ -192,6 +209,19 @@
     self.lat = [NSString stringWithFormat:@"%.8f", crnLoc.coordinate.latitude];
     self.lon = [NSString stringWithFormat:@"%.8f", crnLoc.coordinate.longitude];
     NSLog(@"Location has been updated.");
+    if (self.requests < 3) {
+        self.user[@"isShaking"] = [NSNumber numberWithBool:YES];
+        self.user[@"lat"] = self.lat;
+        self.user[@"lng"] = self.lon;
+        [self.user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                // The object has been saved.
+            } else {
+                NSLog(@"%@", error.description);
+            }
+        }];
+    }
+    self.requests+=1;
 }
 
 @end

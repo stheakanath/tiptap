@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import <Foundation/Foundation.h>
 #import <Parse/Parse.h>
+#import "EFCircularSlider.h"
 
 @interface ViewController()
 

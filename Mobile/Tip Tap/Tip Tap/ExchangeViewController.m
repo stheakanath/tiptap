@@ -11,6 +11,7 @@
 #import "EFCircularSlider.h"
 #import "BackgroundLayer.h"
 #import <QuartzCore/QuartzCore.h>
+#import <pop/pop.h>
 
 @interface ExchangeViewController ()
 
@@ -43,8 +44,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    double width = [[UIScreen mainScreen] bounds].size.width;
+    double height = [[UIScreen mainScreen] bounds].size.height;
     
     // Do any additional setup after loading the view.
+<<<<<<< HEAD
        
     Circle *test2 = [[Circle alloc] init:[UIColor clearColor] withFrame:300];
     [test2 setFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - 150, [[UIScreen mainScreen] bounds].size.height/2-150, 300, 300)];
@@ -58,6 +62,9 @@
     [self.view addSubview:test2];
     
     CGRect sliderFrame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - 150, [[UIScreen mainScreen] bounds].size.height/2-150, 300, 300);
+=======
+    CGRect sliderFrame = CGRectMake(width/2 - 150, height/2-150, 300, 300);
+>>>>>>> c01c26b32f7a431c47440786f9f7d3bdeffb9e28
     EFCircularSlider* circularSlider = [[EFCircularSlider alloc] initWithFrame:sliderFrame];
     
     circularSlider.filledColor = [UIColor whiteColor];
@@ -72,6 +79,28 @@
     
     [self setUpInterface];
     
+<<<<<<< HEAD
+=======
+//    Circle *greenCircle = [[Circle alloc] init:[UIColor greenColor] withFrame:300];
+//    [greenCircle setFrame:CGRectMake(width / 2 - 150, height / 2 - 150, 40, 40)];
+//    [self.view addSubview:greenCircle];
+//    
+//    Circle *whiteCircle = [[Circle alloc] init:[UIColor whiteColor] withFrame:300];
+//    [whiteCircle setFrame:CGRectMake(width / 2 - 150, height / 2 - 150, 40, 40)];
+//    [self.view addSubview:whiteCircle];
+//    
+//    greenCircle.transform = CGAffineTransformMakeScale(0.00001, 0.00001);
+//    
+//    POPSpringAnimation *animation = [POPSpringAnimation animation];
+//    animation.property = [POPAnimatableProperty propertyWithName:kPOPViewScaleXY];
+//    animation.fromValue = [NSValue valueWithCGPoint:CGPointMake(0.0f, 0.0f)];
+//    animation.toValue = [NSValue valueWithCGPoint:CGPointMake(1.0f, 1.0f)];
+//    animation.springBounciness = 20.0f;
+//    animation.springSpeed = 3.0f;
+//    [greenCircle pop_addAnimation:animation forKey:@"bounce"];
+
+    
+>>>>>>> c01c26b32f7a431c47440786f9f7d3bdeffb9e28
 }
 
 -(void)valueChanged:(EFCircularSlider*)slider {

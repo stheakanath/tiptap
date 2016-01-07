@@ -137,6 +137,16 @@
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
     if (motion == UIEventSubtypeMotionShake) {
         // Time is number of seconds since epoch as a double
+        self.user[@"isShaking"] = [NSNumber numberWithBool:YES];
+        [self.user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    if (succeeded) {
+                        // The object has been saved.
+                    } else {
+                        NSLog(@"%@", error.description);
+                    }
+                }];
+        
+
         NSString *shakeTime = [NSString stringWithFormat:@"%f", [[NSDate date] timeIntervalSince1970]];
         [PFCloud callFunctionInBackground:@"attemptTransaction" withParameters:@{@"lat": self.lat, @"lng" : self.lon, @"shake_time" : shakeTime, @"tip_amnt" : @"2"} block:^(NSNumber *ratings, NSError *error) {
             if (!error) {
@@ -148,7 +158,7 @@
 }
 
 - (IBAction)endShake:(id)sender {
-    [PFCloud callFunctionInBackground:@"setShake" withParameters:@{@"shake": @"true"} block:^(NSNumber *ratings, NSError *error) {
+    [PFCloud callFunctionInBackground:@"setShake" withParameters:@{@"shake": @"false"} block:^(NSNumber *ratings, NSError *error) {
         if (!error) {
             // ratings is 4.5
         }

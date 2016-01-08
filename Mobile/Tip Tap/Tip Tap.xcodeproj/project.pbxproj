@@ -32,6 +32,11 @@
 		EBF8CDBE1C3ED99200F864FE /* tiptap_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = EBF8CDBD1C3ED99200F864FE /* tiptap_icon.png */; };
 		EBF8CDC31C3F165300F864FE /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = EBF8CDC21C3F165300F864FE /* logo.png */; };
 		EBF8CDC51C3F1B8800F864FE /* lol4.png in Resources */ = {isa = PBXBuildFile; fileRef = EBF8CDC41C3F1B8800F864FE /* lol4.png */; };
+		EBF8CDC91C3F422200F864FE /* PairedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBF8CDC71C3F422200F864FE /* PairedViewController.m */; };
+		EBF8CDCA1C3F422200F864FE /* tiptap.png in Resources */ = {isa = PBXBuildFile; fileRef = EBF8CDC81C3F422200F864FE /* tiptap.png */; };
+		EBF8CDCE1C3F422D00F864FE /* check.png in Resources */ = {isa = PBXBuildFile; fileRef = EBF8CDCB1C3F422D00F864FE /* check.png */; };
+		EBF8CDCF1C3F422D00F864FE /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = EBF8CDCC1C3F422D00F864FE /* user.png */; };
+		EBF8CDD01C3F422D00F864FE /* x.png in Resources */ = {isa = PBXBuildFile; fileRef = EBF8CDCD1C3F422D00F864FE /* x.png */; };
 		F4EBB0B9F29B9136E6660715 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 99A789438E78CFED7B2C5E41 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -73,6 +78,12 @@
 		EBF8CDBD1C3ED99200F864FE /* tiptap_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tiptap_icon.png; sourceTree = "<group>"; };
 		EBF8CDC21C3F165300F864FE /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		EBF8CDC41C3F1B8800F864FE /* lol4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lol4.png; sourceTree = "<group>"; };
+		EBF8CDC61C3F422200F864FE /* PairedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PairedViewController.h; sourceTree = "<group>"; };
+		EBF8CDC71C3F422200F864FE /* PairedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PairedViewController.m; sourceTree = "<group>"; };
+		EBF8CDC81C3F422200F864FE /* tiptap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tiptap.png; sourceTree = "<group>"; };
+		EBF8CDCB1C3F422D00F864FE /* check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check.png; sourceTree = "<group>"; };
+		EBF8CDCC1C3F422D00F864FE /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user.png; sourceTree = "<group>"; };
+		EBF8CDCD1C3F422D00F864FE /* x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = x.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,8 +153,14 @@
 				EB8AB6261C3DFD070092D79B /* ViewController.m */,
 				EBF8CDA61C3EB53C00F864FE /* ExchangeViewController.h */,
 				EBF8CDA71C3EB53C00F864FE /* ExchangeViewController.m */,
+				EBF8CDC61C3F422200F864FE /* PairedViewController.h */,
+				EBF8CDC71C3F422200F864FE /* PairedViewController.m */,
+				EBF8CDC81C3F422200F864FE /* tiptap.png */,
 				20BBD0081C3EE047000BECCE /* BackgroundLayer.h */,
 				20BBD0091C3EE047000BECCE /* BackgroundLayer.m */,
+				EBF8CDCB1C3F422D00F864FE /* check.png */,
+				EBF8CDCC1C3F422D00F864FE /* user.png */,
+				EBF8CDCD1C3F422D00F864FE /* x.png */,
 				EBF8CDBA1C3ED85700F864FE /* Circle.h */,
 				EBF8CDBB1C3ED85700F864FE /* Circle.m */,
 				EBF8CDA31C3EB28800F864FE /* External */,
@@ -252,9 +269,13 @@
 			files = (
 				EBF8CDBE1C3ED99200F864FE /* tiptap_icon.png in Resources */,
 				EBF8CDC31C3F165300F864FE /* logo.png in Resources */,
+				EBF8CDD01C3F422D00F864FE /* x.png in Resources */,
+				EBF8CDCF1C3F422D00F864FE /* user.png in Resources */,
+				EBF8CDCE1C3F422D00F864FE /* check.png in Resources */,
 				EBF8CDC51C3F1B8800F864FE /* lol4.png in Resources */,
 				EB8AB62F1C3DFD070092D79B /* LaunchScreen.storyboard in Resources */,
 				EB8AB62C1C3DFD070092D79B /* Assets.xcassets in Resources */,
+				EBF8CDCA1C3F422200F864FE /* tiptap.png in Resources */,
 				EB8AB62A1C3DFD070092D79B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -314,6 +335,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBF8CDC91C3F422200F864FE /* PairedViewController.m in Sources */,
 				EB8AB6271C3DFD070092D79B /* ViewController.m in Sources */,
 				20BBD00A1C3EE047000BECCE /* BackgroundLayer.m in Sources */,
 				EBF8CDBC1C3ED85700F864FE /* Circle.m in Sources */,
@@ -445,7 +467,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.sonytheakanath.Tip-Tap";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sonytheakanath.Tip-Tap1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "armv7 armv7s arm64";
@@ -468,7 +490,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.sonytheakanath.Tip-Tap";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sonytheakanath.Tip-Tap1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "armv7 armv7s arm64";

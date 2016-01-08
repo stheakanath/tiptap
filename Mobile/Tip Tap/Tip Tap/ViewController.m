@@ -12,6 +12,7 @@
 #import <ParseUI/ParseUI.h>
 #import "EFCircularSlider.h"
 #import "ExchangeViewController.h"
+#import "PairedViewController.h"
 #import "BackgroundLayer.h"
 #define ROUND_BUTTON_WIDTH_HEIGHT 300
 
@@ -64,12 +65,18 @@
     [temp.layer addAnimation:rotate forKey:@"myRotationAnimation"];
     [self.view addSubview:temp];
     [temp addTarget:self action:@selector(moveToNew:) forControlEvents:UIControlEventTouchUpInside];
-    self.intro = [[UILabel alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - 150, 500, 300, 100)];
+    self.intro = [[UILabel alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - 150, 100, 300, 100)];
     [self.intro setTextAlignment:NSTextAlignmentCenter];
-    [self.intro setText:@"Tap to Tip"];
+    [self.intro setText:@"Tap Logo to Start"];
     [self.intro setFont:[UIFont fontWithName:@"HelveticaNeue-Thin" size:33.0f]];
     [self.intro setTextColor: [UIColor whiteColor]];
     [self.view addSubview:self.intro];
+    
+    // set logo on bottom
+    UIImage *img = [UIImage imageNamed:@"tiptap"];
+    self.instruction = [[UIImageView alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - img.size.width/4, [[UIScreen mainScreen] bounds].size.height - img.size.height, img.size.width/2, img.size.height/2)];
+    self.instruction.image = img;
+    [self.view addSubview:self.instruction];
 }
 
 - (IBAction)moveToNew:(id)sender {
@@ -148,11 +155,14 @@
         self.user[@"isShaking"] = [NSNumber numberWithBool:YES];
         self.user[@"gps"] = self.geo;
         self.user[@"shakeTime"] = [NSString stringWithFormat:@"%f", [[NSDate date] timeIntervalSince1970]];
+        
         [self.user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (!succeeded) {
                 NSLog(@"%@", error.description);
             }
         }];
+        NSLog(@"HELLO");
+ 
         
         NSLog(@"%@", self.geo);
 //        [PFCloud callFunctionInBackground:@"attemptTransaction" withParameters:@{@"username" : self.user[@"username"], @"gps": self.geo, @"shake_time" : shakeTime, @"tip_amnt" : @"-1"} block:^(NSMutableArray *ratings, NSError *error) {

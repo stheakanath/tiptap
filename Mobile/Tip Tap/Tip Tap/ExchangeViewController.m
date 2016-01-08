@@ -12,6 +12,7 @@
 #import "EFCircularSlider.h"
 #import "BackgroundLayer.h"
 #import <QuartzCore/QuartzCore.h>
+#import "PairedViewController.h"
 #import <pop/pop.h>
 
 @interface ExchangeViewController ()
@@ -139,12 +140,14 @@
 }
 
 - (void) executeAnimationToSuccess {
-    //
-    //
-    //
-    // HELLO WORLD
-    //
-    //
+    PairedViewController *v = [[PairedViewController alloc] init];
+    CATransition* transition = [CATransition animation];
+    
+    transition.duration = 0.3;
+    transition.type = kCATransitionFade;
+    
+    [[self navigationController].view.layer addAnimation:transition forKey:kCATransition];
+    [[self navigationController] pushViewController:v animated:NO];
     
 }
 

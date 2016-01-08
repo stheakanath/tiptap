@@ -103,6 +103,7 @@
             NSLog(@"Sucess!");
         }
     }];
+    [self.accept removeTarget:self action:@selector(accepted:) forControlEvents:UIControlEventTouchUpInside];
     
     // hide other elements
     self.reject.hidden = true;

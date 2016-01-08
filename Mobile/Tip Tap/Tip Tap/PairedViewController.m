@@ -52,7 +52,9 @@
     
     // image of who your'e tipping / is tipping you
     UIButton *temp = [UIButton buttonWithType:UIButtonTypeCustom];
-    [temp setImage:[UIImage imageNamed:@"sony.png"] forState:UIControlStateNormal];
+    //[temp setImage:[UIImage imageNamed:@"sony.png"] forState:UIControlStateNormal];
+    [temp setImage:[UIImage imageNamed:@"user.jpg"] forState:UIControlStateNormal];
+    
     temp.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - (SIZE/2), [[UIScreen mainScreen] bounds].size.height/2 - (SIZE/2), SIZE, SIZE);
     temp.clipsToBounds = YES;
     temp.layer.cornerRadius = SIZE/2.0f;

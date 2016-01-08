@@ -51,8 +51,8 @@
     
     // image of who your'e tipping / is tipping you
     UIButton *temp = [UIButton buttonWithType:UIButtonTypeCustom];
-    //[temp setImage:[UIImage imageNamed:@"sony.png"] forState:UIControlStateNormal];
-    [temp setImage:[UIImage imageNamed:@"user.jpg"] forState:UIControlStateNormal];
+    [temp setImage:[UIImage imageNamed:@"sony.png"] forState:UIControlStateNormal];
+    //[temp setImage:[UIImage imageNamed:@"user.jpg"] forState:UIControlStateNormal];
     
     temp.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - (SIZE/2), [[UIScreen mainScreen] bounds].size.height/2 - (SIZE/2), SIZE, SIZE);
     temp.clipsToBounds = YES;
@@ -89,8 +89,20 @@
     self.amountpaid = amt;
 }
 
+- (IBAction)goBack:(id)sender {
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
 - (IBAction)accepted:(id)sender {
     // grab the layers
+    [PFCloud callFunctionInBackground:@"notifyRecipient" withParameters:@{@"u_name" : self.otheruser[@"username"], @"amt": self.amountpaid} block:^(PFObject *returnedUser, NSError *error) {
+        if (!error) {
+            NSLog(@"Sucess!");
+        }
+    }];
+    [self.accept removeTarget:self action:@selector(accepted:) forControlEvents:UIControlEventTouchDragInside];
+    [self.accept addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
+
     CALayer *layer = self.accept.layer;
     
     // remove all other animations
@@ -140,13 +152,7 @@
     [self.youpaid setTextColor: [UIColor whiteColor]];
     [self.view addSubview:self.youpaid];
 
-    [PFCloud callFunctionInBackground:@"notifyRecipient" withParameters:@{@"u_name" : self.otheruser[@"username"], @"amt": self.amountpaid} block:^(PFObject *returnedUser, NSError *error) {
-        if (!error) {
-            NSLog(@"HELLOOOOO");
-        }
-    }];
-
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    //[self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (IBAction)moveToNew:(id)sender {

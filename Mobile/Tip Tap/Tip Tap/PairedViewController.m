@@ -20,7 +20,11 @@
 @interface PairedViewController ()
 
 @property (nonatomic, retain) PFUser *otheruser;
-@property (nonatomic, retain) NSString* amountpaid;
+@property (nonatomic, retain) NSString *amountpaid;
+@property (nonatomic, retain) UIButton *temp;
+@property (nonatomic, retain) UIButton *user;
+@property (nonatomic, retain) UIButton *reject;
+
 @end
 
 @implementation PairedViewController
@@ -50,16 +54,16 @@
     [self.view addSubview:self.pairmessage];
     
     // image of who your'e tipping / is tipping you
-    UIButton *temp = [UIButton buttonWithType:UIButtonTypeCustom];
-    [temp setImage:[UIImage imageNamed:@"sony.png"] forState:UIControlStateNormal];
-    //[temp setImage:[UIImage imageNamed:@"user.jpg"] forState:UIControlStateNormal];
+    self.user = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.user setImage:[UIImage imageNamed:@"sony.png"] forState:UIControlStateNormal];
+    //[self.user setImage:[UIImage imageNamed:@"user.jpg"] forState:UIControlStateNormal];
     
-    temp.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - (SIZE/2), [[UIScreen mainScreen] bounds].size.height/2 - (SIZE/2), SIZE, SIZE);
-    temp.clipsToBounds = YES;
-    temp.layer.cornerRadius = SIZE/2.0f;
-    temp.layer.borderColor=[UIColor whiteColor].CGColor;
-    temp.layer.borderWidth=10;
-    [self.view addSubview:temp];
+    self.user.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - (SIZE/2), [[UIScreen mainScreen] bounds].size.height/2 - (SIZE/2), SIZE, SIZE);
+    self.user.clipsToBounds = YES;
+    self.user.layer.cornerRadius = SIZE/2.0f;
+    self.user.layer.borderColor=[UIColor whiteColor].CGColor;
+    self.user.layer.borderWidth=10;
+    [self.view addSubview:self.user];
     
     // accept button for person you've paired with
     self.accept = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -67,21 +71,19 @@
     self.accept.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - (ICON_SIZE/2) + 130, [[UIScreen mainScreen] bounds].size.height/2 - (ICON_SIZE/2) + 155, ICON_SIZE, ICON_SIZE);
     self.accept.clipsToBounds = YES;
     self.accept.layer.cornerRadius = ICON_SIZE/2.0f;
-    self.accept.layer.borderColor=[UIColor whiteColor].CGColor;
-    self.accept.layer.borderWidth=4;
     [self.view addSubview:self.accept];
     [self.accept addTarget:self action:@selector(accepted:) forControlEvents:UIControlEventTouchUpInside];
 
     // reject button for person you've paired with
-    UIButton *reject = [UIButton buttonWithType:UIButtonTypeCustom];
-    [reject setImage:[UIImage imageNamed:@"x.png"] forState:UIControlStateNormal];
-    reject.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2  - (ICON_SIZE/2) - 130, [[UIScreen mainScreen] bounds].size.height/2 - (ICON_SIZE/2)+ 155, ICON_SIZE, ICON_SIZE);
-    reject.clipsToBounds = YES;
-        reject.layer.cornerRadius = ICON_SIZE/2.0f;
-    reject.layer.borderColor=[UIColor whiteColor].CGColor;
-    reject.layer.borderWidth=4;
-    [self.view addSubview:reject];
-    [reject addTarget:self action:@selector(moveToNew:) forControlEvents:UIControlEventTouchUpInside];
+    self.reject= [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.reject setImage:[UIImage imageNamed:@"x.png"] forState:UIControlStateNormal];
+    self.reject.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2  - (ICON_SIZE/2) - 130, [[UIScreen mainScreen] bounds].size.height/2 - (ICON_SIZE/2)+ 155, ICON_SIZE, ICON_SIZE);
+    self.reject.clipsToBounds = YES;
+    self.reject.layer.cornerRadius = ICON_SIZE/2.0f;
+    self.reject.layer.borderColor=[UIColor whiteColor].CGColor;
+    self.reject.layer.borderWidth=4;
+    [self.view addSubview:self.reject];
+    [self.reject addTarget:self action:@selector(moveToNew:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void) setOtherUser:(PFUser*)lol amountPaid:(NSString*)amt {
@@ -90,6 +92,7 @@
 }
 
 - (IBAction)goBack:(id)sender {
+    // move back to main page
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
@@ -100,9 +103,19 @@
             NSLog(@"Sucess!");
         }
     }];
+    
+    // hide other elements
+    self.reject.hidden = true;
+    self.pairmessage.hidden = true;
+    self.user.hidden = true;
+    
+    // remove target so they don't get paid twice
     [self.accept removeTarget:self action:@selector(accepted:) forControlEvents:UIControlEventTouchDragInside];
+    
+    // change target so that we can switch to the next view
     [self.accept addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
 
+    // get the layer we want
     CALayer *layer = self.accept.layer;
     
     // remove all other animations
@@ -122,8 +135,8 @@
     
     
     // declare what those animations do
-    moveX.toValue= @(160);
-    moveY.toValue= @(260);
+    moveX.toValue= @(200);
+    moveY.toValue= @(370);
     grow.toValue= [NSValue valueWithCGSize:CGSizeMake(300, 300)];
     rotation.toValue = @(M_PI_2 * 12);
     

@@ -16,6 +16,7 @@
 
 
 +(CAGradientLayer*) greyGradient;
++(CAGradientLayer*) doubleGradient;
 
 @end
 

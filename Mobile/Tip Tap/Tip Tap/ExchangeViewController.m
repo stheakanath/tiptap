@@ -13,6 +13,7 @@
 #import "BackgroundLayer.h"
 #import <QuartzCore/QuartzCore.h>
 #import <pop/pop.h>
+#import <AudioToolbox/AudioServices.h>
 
 @interface ExchangeViewController ()
 
@@ -43,7 +44,7 @@
     
     self.tipAmount = [[UILabel alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - 150, [[UIScreen mainScreen] bounds].size.height/2 - 150, 300, 300)];
     [self.tipAmount setTextAlignment:NSTextAlignmentCenter];
-    [self.tipAmount setText:@"$0"];
+    [self.tipAmount setText:@"$1"];
     [self.tipAmount setFont:[UIFont fontWithName:@"HelveticaNeue-Thin" size:70.0f]];
     [self.tipAmount setTextColor: [UIColor whiteColor]];
     [self.view addSubview:self.tipAmount];
@@ -68,6 +69,13 @@
     [self.tapToTip setTextColor: [UIColor whiteColor]];
     [self.view addSubview:self.tapToTip];
     
+    UIImage *loader = [UIImage animatedImageNamed:@"bigring" duration:0.4f];
+    self.loading = [[UIImageView alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - 100, [[UIScreen mainScreen] bounds].size.height/2 - 100, 200, 200)];
+    self.loading.image = loader;
+    self.loading.alpha = 0;
+    [self.view addSubview:self.loading];
+
+    
 }
 
 - (void) setGeo1:(PFGeoPoint*)geo1 {
@@ -85,6 +93,20 @@
             }
         }];
 
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+        AudioServicesPlaySystemSound(1109);
+        CAGradientLayer *bgLayer = [BackgroundLayer doubleGradient];
+        bgLayer.frame = self.view.bounds;
+        [self.view.layer insertSublayer:bgLayer atIndex:1];
+        
+        self.tipAmount.alpha = 0;
+        // self.chooseAmount.alpha = 0;
+        [self.chooseAmount setText:@"Pairing..."];
+        self.instruction.alpha = 0;
+        self.tapToTip.alpha = 0;
+        self.circularSlider.alpha = 0;
+        self.loading.alpha = 1;
+        
         NSString *shakeTime = [NSString stringWithFormat:@"%f", [[NSDate date] timeIntervalSince1970]];
         [PFCloud callFunctionInBackground:@"attemptTransaction" withParameters:@{@"username" : self.user[@"username"], @"gps": self.geo, @"shake_time" : shakeTime, @"tip_amnt" : [_tipAmount.text substringFromIndex:1]} block:^(PFObject *returnedUser, NSError *error) {
             if (!error) {
@@ -177,25 +199,24 @@
     [super viewDidLoad];
     self.user = [PFUser currentUser];
     [self setNeedsStatusBarAppearanceUpdate];
+    
     // Do any additional setup after loading the view.
     Circle *test2 = [[Circle alloc] init:[UIColor clearColor] withFrame:300];
     [test2 setFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - 150, [[UIScreen mainScreen] bounds].size.height/2-150, 300, 300)];
-
-    
     [self.view addSubview:test2];
     
     CGRect sliderFrame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - 150, [[UIScreen mainScreen] bounds].size.height/2-150, 300, 300);
-    EFCircularSlider* circularSlider = [[EFCircularSlider alloc] initWithFrame:sliderFrame];
     
-    circularSlider.filledColor = [UIColor whiteColor];
-    //circularSlider.filledColor = UIColorFromRGB(0x195f0f);
-    circularSlider.unfilledColor = UIColorFromRGB(0x238415);
-    //[UIColor whiteColor];
-    circularSlider.lineWidth = 10;
+    
+    self.circularSlider = [[EFCircularSlider alloc] initWithFrame:sliderFrame];
+    
+    self.circularSlider.filledColor = [UIColor whiteColor];
+    self.circularSlider.unfilledColor = UIColorFromRGB(0x238415);
+    self.circularSlider.lineWidth = 10;
 
-    [circularSlider addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
-    [self.view addSubview:circularSlider];
-    [circularSlider setCurrentValue:10.0f];
+    [self.circularSlider addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
+    [self.view addSubview:self.circularSlider];
+    [self.circularSlider setCurrentValue:10.0f];
     
     [self setUpInterface];
     

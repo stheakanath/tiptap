@@ -28,6 +28,7 @@
 		20BBD11C1C3F40BA000BECCE /* bigring18.png in Resources */ = {isa = PBXBuildFile; fileRef = 20BBD1081C3F40BA000BECCE /* bigring18.png */; };
 		20BBD11D1C3F40BA000BECCE /* bigring19.png in Resources */ = {isa = PBXBuildFile; fileRef = 20BBD1091C3F40BA000BECCE /* bigring19.png */; };
 		20BBD11E1C3F40BA000BECCE /* bigring20.png in Resources */ = {isa = PBXBuildFile; fileRef = 20BBD10A1C3F40BA000BECCE /* bigring20.png */; };
+		EB3B8B8A1C3F6AF300C38DFB /* sony.png in Resources */ = {isa = PBXBuildFile; fileRef = EB3B8B891C3F6AF300C38DFB /* sony.png */; };
 		EB8AB6211C3DFD070092D79B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8AB6201C3DFD070092D79B /* main.m */; };
 		EB8AB6241C3DFD070092D79B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8AB6231C3DFD070092D79B /* AppDelegate.m */; };
 		EB8AB6271C3DFD070092D79B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8AB6261C3DFD070092D79B /* ViewController.m */; };
@@ -59,6 +60,7 @@
 		EBF8CDDB1C3F4E0E00F864FE /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = EBF8CDDA1C3F4E0E00F864FE /* logo.png */; };
 		EBF8CDDD1C3F4E1E00F864FE /* tiptap.png in Resources */ = {isa = PBXBuildFile; fileRef = EBF8CDDC1C3F4E1E00F864FE /* tiptap.png */; };
 		EBF8CDDF1C3F4E4600F864FE /* check.png in Resources */ = {isa = PBXBuildFile; fileRef = EBF8CDDE1C3F4E4600F864FE /* check.png */; };
+		EBF8CDE11C3F63F300F864FE /* user.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EBF8CDE01C3F63F300F864FE /* user.jpg */; };
 		F4EBB0B9F29B9136E6660715 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 99A789438E78CFED7B2C5E41 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -88,6 +90,7 @@
 		20BBD10A1C3F40BA000BECCE /* bigring20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bigring20.png; path = output/bigring20.png; sourceTree = "<group>"; };
 		5C8103122300599DE81C9CE5 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		99A789438E78CFED7B2C5E41 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		EB3B8B891C3F6AF300C38DFB /* sony.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sony.png; sourceTree = "<group>"; };
 		EB8AB61C1C3DFD070092D79B /* Tip Tap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tip Tap.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB8AB6201C3DFD070092D79B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		EB8AB6221C3DFD070092D79B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -128,6 +131,7 @@
 		EBF8CDDA1C3F4E0E00F864FE /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		EBF8CDDC1C3F4E1E00F864FE /* tiptap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tiptap.png; sourceTree = "<group>"; };
 		EBF8CDDE1C3F4E4600F864FE /* check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check.png; sourceTree = "<group>"; };
+		EBF8CDE01C3F63F300F864FE /* user.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = user.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -237,8 +241,10 @@
 			isa = PBXGroup;
 			children = (
 				EBF8CDD41C3F4C1200F864FE /* user.png */,
+				EBF8CDE01C3F63F300F864FE /* user.jpg */,
 				EBF8CDD51C3F4C1200F864FE /* x.png */,
 				EBF8CDDA1C3F4E0E00F864FE /* logo.png */,
+				EB3B8B891C3F6AF300C38DFB /* sony.png */,
 				EBF8CDDC1C3F4E1E00F864FE /* tiptap.png */,
 				EBF8CDDE1C3F4E4600F864FE /* check.png */,
 				20BBD0F71C3F40BA000BECCE /* bigring1.png */,
@@ -346,6 +352,7 @@
 				20BBD10F1C3F40BA000BECCE /* bigring5.png in Resources */,
 				EBF8CDBE1C3ED99200F864FE /* tiptap_icon.png in Resources */,
 				20BBD1141C3F40BA000BECCE /* bigring10.png in Resources */,
+				EB3B8B8A1C3F6AF300C38DFB /* sony.png in Resources */,
 				20BBD1191C3F40BA000BECCE /* bigring15.png in Resources */,
 				20BBD1151C3F40BA000BECCE /* bigring11.png in Resources */,
 				EBF8CDC31C3F165300F864FE /* logo.png in Resources */,
@@ -363,6 +370,7 @@
 				20BBD10D1C3F40BA000BECCE /* bigring3.png in Resources */,
 				EB8AB62C1C3DFD070092D79B /* Assets.xcassets in Resources */,
 				20BBD1161C3F40BA000BECCE /* bigring12.png in Resources */,
+				EBF8CDE11C3F63F300F864FE /* user.jpg in Resources */,
 				20BBD11C1C3F40BA000BECCE /* bigring18.png in Resources */,
 				EBF8CDDF1C3F4E4600F864FE /* check.png in Resources */,
 				EB8AB62A1C3DFD070092D79B /* Main.storyboard in Resources */,

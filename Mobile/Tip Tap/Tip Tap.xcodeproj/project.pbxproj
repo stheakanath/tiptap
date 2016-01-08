@@ -174,6 +174,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		EB3B8B8B1C3F6E7300C38DFB /* Extra Interface */ = {
+			isa = PBXGroup;
+			children = (
+				20BBD0081C3EE047000BECCE /* BackgroundLayer.h */,
+				20BBD0091C3EE047000BECCE /* BackgroundLayer.m */,
+				EBF8CDBA1C3ED85700F864FE /* Circle.h */,
+				EBF8CDBB1C3ED85700F864FE /* Circle.m */,
+			);
+			name = "Extra Interface";
+			sourceTree = "<group>";
+		};
 		EB8AB6131C3DFD070092D79B = {
 			isa = PBXGroup;
 			children = (
@@ -203,11 +214,7 @@
 				EBF8CDA71C3EB53C00F864FE /* ExchangeViewController.m */,
 				EBF8CDD11C3F4C0B00F864FE /* PairedViewController.h */,
 				EBF8CDD21C3F4C0C00F864FE /* PairedViewController.m */,
-				20BBD0081C3EE047000BECCE /* BackgroundLayer.h */,
-				20BBD0091C3EE047000BECCE /* BackgroundLayer.m */,
-				EBF8CDBA1C3ED85700F864FE /* Circle.h */,
-				EBF8CDBB1C3ED85700F864FE /* Circle.m */,
-				EBF8CDD81C3F4C4500F864FE /* output */,
+				EB3B8B8B1C3F6E7300C38DFB /* Extra Interface */,
 				EBF8CDA31C3EB28800F864FE /* External */,
 				EB8AB61F1C3DFD070092D79B /* Supporting Files */,
 			);
@@ -240,6 +247,7 @@
 		EBF8CDA31C3EB28800F864FE /* External */ = {
 			isa = PBXGroup;
 			children = (
+				EBF8CDD81C3F4C4500F864FE /* output */,
 				EBF8CDD41C3F4C1200F864FE /* user.png */,
 				EBF8CDE01C3F63F300F864FE /* user.jpg */,
 				EBF8CDD51C3F4C1200F864FE /* x.png */,

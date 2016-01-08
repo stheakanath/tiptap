@@ -44,25 +44,25 @@
     bgLayer.frame = self.view.bounds;
     [self.view.layer insertSublayer:bgLayer atIndex:0];
     
-    //Circular Rotation
+    // Circular Rotation
     CABasicAnimation *rotate =
     [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
     rotate.byValue = @(M_PI*2); // Change to - angle for counter clockwise rotation
     rotate.duration = 3.0;
     rotate.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     
-    //Temp button
+    // Temp button
     UIButton *temp = [UIButton buttonWithType:UIButtonTypeCustom];
     
     [temp setImage:[UIImage imageNamed:@"tiptap_icon.png"] forState:UIControlStateNormal];
     
-    //width and height should be same value
+    // width and height should be same value
     temp.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - (ROUND_BUTTON_WIDTH_HEIGHT/2), [[UIScreen mainScreen] bounds].size.height/2 - (ROUND_BUTTON_WIDTH_HEIGHT/2), ROUND_BUTTON_WIDTH_HEIGHT, ROUND_BUTTON_WIDTH_HEIGHT);
     
-    //Clip/Clear the other pieces whichever outside the rounded corner
+    // Clip/Clear the other pieces whichever outside the rounded corner
     temp.clipsToBounds = YES;
     
-    //half of the width
+    // half of the width
     temp.layer.cornerRadius = ROUND_BUTTON_WIDTH_HEIGHT/2.0f;
     [temp.layer addAnimation:rotate forKey:@"myRotationAnimation"];
     [self.view addSubview:temp];
@@ -108,7 +108,6 @@
         CAGradientLayer *bgLayer = [BackgroundLayer greyGradient];
         bgLayer.frame = self.view.bounds;
         [logInController.view.layer insertSublayer:bgLayer atIndex:0];
-
     }
     
     self.user = [PFUser currentUser];
@@ -166,14 +165,7 @@
                 NSLog(@"%@", error.description);
             }
         }];
-        NSLog(@"HELLO");
         
-        NSLog(@"%@", self.geo);
-//        [PFCloud callFunctionInBackground:@"attemptTransaction" withParameters:@{@"username" : self.user[@"username"], @"gps": self.geo, @"shake_time" : shakeTime, @"tip_amnt" : @"-1"} block:^(NSMutableArray *ratings, NSError *error) {
-//            if (!error) {
-//                NSLog(@"%@", ratings);
-//            }
-//        }];
         [self performSelector:@selector(endShake:) withObject:self afterDelay:30.0f];
     }
 }
@@ -211,7 +203,6 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     CLLocation *crnLoc = [locations lastObject];
     self.geo = [PFGeoPoint geoPointWithLocation:crnLoc];
-    //NSLog(@"Location has been updated.");
     if (self.requests < 3) {
         self.user[@"isShaking"] = [NSNumber numberWithBool:YES];
         self.user[@"gps"] = self.geo;

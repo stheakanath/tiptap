@@ -28,9 +28,7 @@
 @implementation ExchangeViewController
 
 - (void)setUpInterface {
-    
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
-                                                  forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = [UIImage new];
     self.navigationController.navigationBar.translucent = YES;
     self.navigationController.view.backgroundColor = [UIColor clearColor];
@@ -59,7 +57,6 @@
     [self.view addSubview:self.chooseAmount];
     
     UIImage *image = [UIImage imageNamed:@"lol4.png"];
-    //    UIImage *image = [UIImage animatedImageNamed:@"lol" duration:3.0f];
     self.instruction = [[UIImageView alloc] initWithFrame:CGRectMake(45, 510, image.size.width/15, image.size.height/15)];
     self.instruction.image = image;
     [self.view addSubview:self.instruction];
@@ -76,8 +73,6 @@
     self.loading.image = loader;
     self.loading.alpha = 0;
     [self.view addSubview:self.loading];
-
-    
 }
 
 - (void) setGeo1:(PFGeoPoint*)geo1 {
@@ -102,7 +97,6 @@
         [self.view.layer insertSublayer:bgLayer atIndex:1];
         
         self.tipAmount.alpha = 0;
-        // self.chooseAmount.alpha = 0;
         [self.chooseAmount setText:@"Pairing..."];
         self.instruction.alpha = 0;
         self.tapToTip.alpha = 0;
@@ -122,14 +116,12 @@
 }
 
 - (void)executeTransfer:(NSNumber*)amount medium:(NSString*)medium fromAccountID:(NSString*)fromAccountID toAccountID:(NSString*)toAccountID apiKey:(NSString*)apiKey {
-    
     //Get Transaction Timestamp
     NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"MM/dd/yy hh:mm:ss"];
     
     //Create JSON
-    NSDictionary *dictionary = @{ @"medium" : medium, @"payee_id": toAccountID,
-                                  @"amount": amount, @"transaction_date": [dateFormatter stringFromDate:[NSDate date]]};
+    NSDictionary *dictionary = @{@"medium" : medium, @"payee_id": toAccountID, @"amount": amount, @"transaction_date": [dateFormatter stringFromDate:[NSDate date]]};
     NSError *error = nil;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dictionary options:0 error:&error];
     
@@ -149,41 +141,23 @@
     
     //Create SessionDataTask
     NSURLSessionDataTask * dataTask =[defaultSession dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-            NSLog(@"Response:%@ %@\n", response, error);
-            if(error == nil)
-                                                           {
-                                                               NSString * text = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
-                                                               NSLog(@"Data = %@",text);
-                                                               PairedViewController *v = [[PairedViewController alloc] init];
-                                                               [v setOtherUser:self.otheruser amountPaid:_tipAmount.text];
-                                                               CATransition* transition = [CATransition animation];
-                                                               
-                                                               transition.duration = 0.3;
-                                                               transition.type = kCATransitionFade;
-                                                               
-                                                               [[self navigationController].view.layer addAnimation:transition forKey:kCATransition];
-                                                               [[self navigationController] pushViewController:v animated:NO];
-                                                               [self executeAnimationToSuccess];
-                                                               
-                                                               
-                                                           }
-                                                           
-                                                       }];
+        NSLog(@"Response:%@ %@\n", response, error);
+        if (error == nil) {
+           NSString * text = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+           NSLog(@"Data = %@",text);
+           PairedViewController *v = [[PairedViewController alloc] init];
+           [v setOtherUser:self.otheruser amountPaid:_tipAmount.text];
+           CATransition* transition = [CATransition animation];
+           
+           transition.duration = 0.3;
+           transition.type = kCATransitionFade;
+           
+           [[self navigationController].view.layer addAnimation:transition forKey:kCATransition];
+           [[self navigationController] pushViewController:v animated:NO];
+        }
+    }];
     //Run Request
     [dataTask resume];
-    
-}
-
-- (void) executeAnimationToSuccess {
-    //PairedViewController *v = [[PairedViewController alloc] init];
-//    CATransition* transition = [CATransition animation];
-//    
-//    transition.duration = 0.3;
-//    transition.type = kCATransitionFade;
-//    
-//    [[self navigationController].view.layer addAnimation:transition forKey:kCATransition];
-//    [[self navigationController] pushViewController:v animated:NO];
-    
 }
 
 - (IBAction)endShake:(id)sender {
@@ -194,11 +168,9 @@
     }];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
+- (void)viewWillDisappear:(BOOL)animated {
     if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound) {
-        // back button was pressed.  We know this is true because self is no longer
-        // in the navigation stack.
+        // back button was pressed.  We know this is true because self is no longer in the navigation stack.
         CATransition *transition = [CATransition animation];
         [transition setDuration:0.75];
         [transition setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
@@ -207,8 +179,6 @@
         [transition setDelegate:self];
         [self.navigationController.view.layer addAnimation:transition forKey:nil];
     }
-    
-   // [super viewWillDisappear:animated];
 }
 
 - (void)viewDidLoad {
@@ -223,22 +193,18 @@
     
     CGRect sliderFrame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - 150, [[UIScreen mainScreen] bounds].size.height/2-150, 300, 300);
     
-    
     self.circularSlider = [[EFCircularSlider alloc] initWithFrame:sliderFrame];
-    
     self.circularSlider.filledColor = [UIColor whiteColor];
     self.circularSlider.unfilledColor = UIColorFromRGB(0x238415);
     self.circularSlider.lineWidth = 10;
-
     [self.circularSlider addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:self.circularSlider];
     [self.circularSlider setCurrentValue:10.0f];
     
     [self setUpInterface];
-    
 }
 
--(void)valueChanged:(EFCircularSlider*)slider {
+- (void)valueChanged:(EFCircularSlider*)slider {
     int tip = [[_tipAmount.text substringFromIndex:1] intValue];
     if ((int) (ceil(slider.currentValue) / 10.) != tip) {
         CATransition *animation = [CATransition animation];

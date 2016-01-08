@@ -15,6 +15,5 @@
 @property (retain, nonatomic) UILabel *intro;
 @property (retain, nonatomic) UIImageView *instruction;
 
-
 @end
 

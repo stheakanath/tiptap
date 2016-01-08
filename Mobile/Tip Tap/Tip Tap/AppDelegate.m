@@ -21,14 +21,10 @@
     UINavigationController *navControl = [[UINavigationController alloc] initWithRootViewController: ini];
     [self.window setRootViewController: navControl];
     [Parse setApplicationId:@"irQJP5wBT07xDDZvUFwZQh4oREygqeO4CFhIL7VH" clientKey:@"v8vM9udPaSg06B8fW4En8xntZz9Wse0SyC750VoE"];
-    UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
-                                                    UIUserNotificationTypeBadge |
-                                                    UIUserNotificationTypeSound);
-    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes
-                                                                             categories:nil];
+    UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound);
+    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes categories:nil];
     [application registerUserNotificationSettings:settings];
     [application registerForRemoteNotifications];
-    //[[PFInstallation currentInstallation] setObject:[PFUser currentUser][@"username"] forKey:@"username"];
     return YES;
 }
 
@@ -47,6 +43,5 @@
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
     application.applicationSupportsShakeToEdit = YES;
 }
-
 
 @end

@@ -15,7 +15,6 @@
     self.layer.cornerRadius = num/2;
     self.backgroundColor = color;
     return self;
-    
 }
 
 @end

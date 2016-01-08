@@ -55,8 +55,8 @@
     
     // image of who your'e tipping / is tipping you
     self.user = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.user setImage:[UIImage imageNamed:@"sony.png"] forState:UIControlStateNormal];
-    //[self.user setImage:[UIImage imageNamed:@"user.jpg"] forState:UIControlStateNormal];
+    //[self.user setImage:[UIImage imageNamed:@"sony.png"] forState:UIControlStateNormal];
+    [self.user setImage:[UIImage imageNamed:@"user.jpg"] forState:UIControlStateNormal];
     
     self.user.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - (SIZE/2), [[UIScreen mainScreen] bounds].size.height/2 - (SIZE/2), SIZE, SIZE);
     self.user.clipsToBounds = YES;

@@ -67,9 +67,10 @@
     [temp.layer addAnimation:rotate forKey:@"myRotationAnimation"];
     [self.view addSubview:temp];
     [temp addTarget:self action:@selector(moveToNew:) forControlEvents:UIControlEventTouchUpInside];
-    self.intro = [[UILabel alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - 150, 80, 300, 100)];
+    self.intro = [[UILabel alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - 150, 70, 300, 100)];
+    self.intro.numberOfLines = 0;
     [self.intro setTextAlignment:NSTextAlignmentCenter];
-    [self.intro setText:@"Tap Logo to Start"];
+    [self.intro setText:@"Tap Logo to Start\nor Shake to Recieve"];
     [self.intro setFont:[UIFont fontWithName:@"HelveticaNeue-Thin" size:33.0f]];
     [self.intro setTextColor: [UIColor whiteColor]];
     [self.view addSubview:self.intro];

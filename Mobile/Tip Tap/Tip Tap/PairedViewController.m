@@ -135,9 +135,9 @@
     
     
     // declare what those animations do
-    moveX.toValue= @(200);
-    moveY.toValue= @(370);
-    grow.toValue= [NSValue valueWithCGSize:CGSizeMake(300, 300)];
+    moveX.toValue= @([[UIScreen mainScreen] bounds].size.width/2);
+    moveY.toValue= @([[UIScreen mainScreen] bounds].size.height/2);
+    grow.toValue= [NSValue valueWithCGSize:CGSizeMake(SIZE, 300)];
     rotation.toValue = @(M_PI_2 * 12);
     
     // name animations and delegate
@@ -158,7 +158,7 @@
     [layer pop_addAnimation:moveY forKey:@"moveY"];
     
     // insert caption containing information about payment
-    self.youpaid = [[UILabel alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - 75, 410, 150, 50)];
+    self.youpaid = [[UILabel alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - 75, 500, 150, 50)];
     [self.youpaid setTextAlignment:NSTextAlignmentCenter];
     [self.youpaid setText:@"You paid"];
     [self.youpaid setFont:[UIFont fontWithName:@"HelveticaNeue-Thin" size:33.0f]];

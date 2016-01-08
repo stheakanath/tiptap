@@ -56,6 +56,9 @@
 		EBF8CDD61C3F4C1200F864FE /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = EBF8CDD41C3F4C1200F864FE /* user.png */; };
 		EBF8CDD71C3F4C1200F864FE /* x.png in Resources */ = {isa = PBXBuildFile; fileRef = EBF8CDD51C3F4C1200F864FE /* x.png */; };
 		EBF8CDD91C3F4C4500F864FE /* output in Resources */ = {isa = PBXBuildFile; fileRef = EBF8CDD81C3F4C4500F864FE /* output */; };
+		EBF8CDDB1C3F4E0E00F864FE /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = EBF8CDDA1C3F4E0E00F864FE /* logo.png */; };
+		EBF8CDDD1C3F4E1E00F864FE /* tiptap.png in Resources */ = {isa = PBXBuildFile; fileRef = EBF8CDDC1C3F4E1E00F864FE /* tiptap.png */; };
+		EBF8CDDF1C3F4E4600F864FE /* check.png in Resources */ = {isa = PBXBuildFile; fileRef = EBF8CDDE1C3F4E4600F864FE /* check.png */; };
 		F4EBB0B9F29B9136E6660715 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 99A789438E78CFED7B2C5E41 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -122,6 +125,9 @@
 		EBF8CDD41C3F4C1200F864FE /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user.png; sourceTree = "<group>"; };
 		EBF8CDD51C3F4C1200F864FE /* x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = x.png; sourceTree = "<group>"; };
 		EBF8CDD81C3F4C4500F864FE /* output */ = {isa = PBXFileReference; lastKnownFileType = folder; path = output; sourceTree = "<group>"; };
+		EBF8CDDA1C3F4E0E00F864FE /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		EBF8CDDC1C3F4E1E00F864FE /* tiptap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tiptap.png; sourceTree = "<group>"; };
+		EBF8CDDE1C3F4E4600F864FE /* check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,12 +199,15 @@
 				EBF8CDA71C3EB53C00F864FE /* ExchangeViewController.m */,
 				EBF8CDD41C3F4C1200F864FE /* user.png */,
 				EBF8CDD51C3F4C1200F864FE /* x.png */,
+				EBF8CDDE1C3F4E4600F864FE /* check.png */,
 				EBF8CDD11C3F4C0B00F864FE /* PairedViewController.h */,
 				EBF8CDD21C3F4C0C00F864FE /* PairedViewController.m */,
+				EBF8CDDC1C3F4E1E00F864FE /* tiptap.png */,
 				20BBD0081C3EE047000BECCE /* BackgroundLayer.h */,
 				20BBD0091C3EE047000BECCE /* BackgroundLayer.m */,
 				EBF8CDBA1C3ED85700F864FE /* Circle.h */,
 				EBF8CDBB1C3ED85700F864FE /* Circle.m */,
+				EBF8CDDA1C3F4E0E00F864FE /* logo.png */,
 				EBF8CDD81C3F4C4500F864FE /* output */,
 				EBF8CDA31C3EB28800F864FE /* External */,
 				EB8AB61F1C3DFD070092D79B /* Supporting Files */,
@@ -324,6 +333,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBF8CDDD1C3F4E1E00F864FE /* tiptap.png in Resources */,
 				20BBD1111C3F40BA000BECCE /* bigring7.png in Resources */,
 				20BBD11A1C3F40BA000BECCE /* bigring16.png in Resources */,
 				EBF8CDD61C3F4C1200F864FE /* user.png in Resources */,
@@ -349,7 +359,9 @@
 				EB8AB62C1C3DFD070092D79B /* Assets.xcassets in Resources */,
 				20BBD1161C3F40BA000BECCE /* bigring12.png in Resources */,
 				20BBD11C1C3F40BA000BECCE /* bigring18.png in Resources */,
+				EBF8CDDF1C3F4E4600F864FE /* check.png in Resources */,
 				EB8AB62A1C3DFD070092D79B /* Main.storyboard in Resources */,
+				EBF8CDDB1C3F4E0E00F864FE /* logo.png in Resources */,
 				20BBD10B1C3F40BA000BECCE /* bigring1.png in Resources */,
 				20BBD1101C3F40BA000BECCE /* bigring6.png in Resources */,
 				20BBD1121C3F40BA000BECCE /* bigring8.png in Resources */,

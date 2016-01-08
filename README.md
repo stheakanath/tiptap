@@ -14,4 +14,4 @@ After this, the backend communicates the match down to the phone initiating the 
 
 ## Team
 
-Built at the Capital One hackathon, this was a project by Jeff Chang, Harrison Huang, Ankit Mathur, Gabbi Merz, and Sony Theakanath
+Built at the Capital One hackathon, this was a project by Jeff Chang, Harrison Huang, Ankit Mathur, Gabbi Merz, and Sony Theakanath.

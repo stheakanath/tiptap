@@ -127,10 +127,13 @@ Parse.Cloud.define("setShake", function(request, response) {
 });
 
 Parse.Cloud.define("notifyRecipient", function(request, response) { 
+	console.log(JSON.stringify("received push call"));
 	var username = request.params.u_name;
+	console.log(username);
 	var amnt_paid = request.params.amt;
+	console.log(amnt_paid);
 	var pushQuery = new Parse.Query(Parse.Installation);
-	var notif_string = "You were just paid " + amnt_paid
+	var notif_string = "You were just paid " + amnt_paid + "!";
 	pushQuery.equalTo("username", username);
 	Parse.Push.send({
 		where: pushQuery,
@@ -139,6 +142,7 @@ Parse.Cloud.define("notifyRecipient", function(request, response) {
 			sound: "default"
 		}}, {
 			success: function() {
+				console.log("SUCCESSSSSSSSS");
 				response.success("success");
 			},
 			error: function(error) {

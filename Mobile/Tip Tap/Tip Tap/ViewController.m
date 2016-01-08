@@ -10,6 +10,7 @@
 #import <Foundation/Foundation.h>
 #import <Parse/Parse.h>
 #import <ParseUI/ParseUI.h>
+#import <AudioToolbox/AudioServices.h>
 #import "EFCircularSlider.h"
 #import "ExchangeViewController.h"
 #import "PairedViewController.h"
@@ -34,6 +35,7 @@
     self.navigationController.view.backgroundColor = [UIColor clearColor];
     self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.topItem.title = @"";
     
     // background color
     [self.view setBackgroundColor:UIColorFromRGB(0xf5f5f5)];
@@ -151,6 +153,7 @@
 // Need to shake as a whip to sense
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
     if (motion == UIEventSubtypeMotionShake) {
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
         // Time is number of seconds since epoch as a double
         self.user[@"isShaking"] = [NSNumber numberWithBool:YES];
         self.user[@"gps"] = self.geo;

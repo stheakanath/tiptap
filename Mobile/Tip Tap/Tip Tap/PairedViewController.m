@@ -161,7 +161,7 @@
     // insert caption containing information about payment
     self.youpaid = [[UILabel alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - 75, 500, 150, 50)];
     [self.youpaid setTextAlignment:NSTextAlignmentCenter];
-    [self.youpaid setText:@"You paid"];
+    [self.youpaid setText:@"Tip complete!"];
     [self.youpaid setFont:[UIFont fontWithName:@"HelveticaNeue-Thin" size:33.0f]];
     [self.youpaid setTextColor: [UIColor whiteColor]];
     [self.view addSubview:self.youpaid];

@@ -21,7 +21,6 @@
 
 @property (nonatomic, retain) PFUser *otheruser;
 @property (nonatomic, retain) NSString* amountpaid;
-
 @end
 
 @implementation PairedViewController
@@ -63,15 +62,15 @@
     [self.view addSubview:temp];
     
     // accept button for person you've paired with
-    UIButton *accept = [UIButton buttonWithType:UIButtonTypeCustom];
-    [accept setImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateNormal];
-    accept.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - (ICON_SIZE/2) + 130, [[UIScreen mainScreen] bounds].size.height/2 - (ICON_SIZE/2) + 155, ICON_SIZE, ICON_SIZE);
-    accept.clipsToBounds = YES;
-    accept.layer.cornerRadius = ICON_SIZE/2.0f;
-    accept.layer.borderColor=[UIColor whiteColor].CGColor;
-    accept.layer.borderWidth=4;
-    [self.view addSubview:accept];
-    [accept addTarget:self action:@selector(accepted:) forControlEvents:UIControlEventTouchUpInside];
+    self.accept = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.accept setImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateNormal];
+    self.accept.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - (ICON_SIZE/2) + 130, [[UIScreen mainScreen] bounds].size.height/2 - (ICON_SIZE/2) + 155, ICON_SIZE, ICON_SIZE);
+    self.accept.clipsToBounds = YES;
+    self.accept.layer.cornerRadius = ICON_SIZE/2.0f;
+    self.accept.layer.borderColor=[UIColor whiteColor].CGColor;
+    self.accept.layer.borderWidth=4;
+    [self.view addSubview:self.accept];
+    [self.accept addTarget:self action:@selector(accepted:) forControlEvents:UIControlEventTouchUpInside];
 
     // reject button for person you've paired with
     UIButton *reject = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -91,6 +90,56 @@
 }
 
 - (IBAction)accepted:(id)sender {
+    // grab the layers
+    CALayer *layer = self.accept.layer;
+    
+    // remove all other animations
+    [layer pop_removeAllAnimations];
+    
+    // declare animations we'll be using
+    POPBasicAnimation *moveX = [POPBasicAnimation animation];
+    POPBasicAnimation *moveY = [POPBasicAnimation animation];
+    POPSpringAnimation *rotation = [POPSpringAnimation animation];
+    POPBasicAnimation *grow = [POPBasicAnimation animation];
+    
+    // declare properties of those animations
+    moveX.property = [POPAnimatableProperty propertyWithName: kPOPLayerPositionX];
+    moveY.property = [POPAnimatableProperty propertyWithName: kPOPLayerPositionY];
+    grow.property = [POPAnimatableProperty propertyWithName:kPOPLayerSize];
+    rotation.property = [POPAnimatableProperty propertyWithName: kPOPLayerRotation];
+    
+    
+    // declare what those animations do
+    moveX.toValue= @(160);
+    moveY.toValue= @(260);
+    grow.toValue= [NSValue valueWithCGSize:CGSizeMake(300, 300)];
+    rotation.toValue = @(M_PI_2 * 12);
+    
+    // name animations and delegate
+    moveX.name=@"moveX";
+    moveX.delegate=self;
+    moveY.name=@"moveY";
+    moveY.delegate=self;
+    grow.name=@"grow";
+    grow.delegate=self;
+    rotation.name=@"rotation";
+    rotation.delegate=self;
+    
+    
+    // add animations to the layer
+    [layer pop_addAnimation:grow forKey:@"grow"];
+    [layer pop_addAnimation:rotation forKey:@"rotation"];
+    [layer pop_addAnimation:moveX forKey:@"moveX"];
+    [layer pop_addAnimation:moveY forKey:@"moveY"];
+    
+    // insert caption containing information about payment
+    self.youpaid = [[UILabel alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - 75, 410, 150, 50)];
+    [self.youpaid setTextAlignment:NSTextAlignmentCenter];
+    [self.youpaid setText:@"You paid"];
+    [self.youpaid setFont:[UIFont fontWithName:@"HelveticaNeue-Thin" size:33.0f]];
+    [self.youpaid setTextColor: [UIColor whiteColor]];
+    [self.view addSubview:self.youpaid];
+
     [PFCloud callFunctionInBackground:@"notifyRecipient" withParameters:@{@"u_name" : self.otheruser[@"username"], @"amt": self.amountpaid} block:^(PFObject *returnedUser, NSError *error) {
         if (!error) {
             NSLog(@"HELLOOOOO");
@@ -101,6 +150,7 @@
 }
 
 - (IBAction)moveToNew:(id)sender {
+    
     ExchangeViewController *v = [[ExchangeViewController alloc] init];
     CATransition* transition = [CATransition animation];
     

@@ -11,7 +11,8 @@
 @interface PairedViewController : UIViewController
 
 @property (retain, nonatomic)  UILabel *pairmessage;
+@property (retain, nonatomic)  UILabel *youpaid;
 
 - (void) setOtherUser:(PFUser*)lol amountPaid:(NSString*)amt;
-
+@property (nonatomic, retain) UIButton *accept; 
 @end

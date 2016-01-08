@@ -67,7 +67,7 @@
     [temp.layer addAnimation:rotate forKey:@"myRotationAnimation"];
     [self.view addSubview:temp];
     [temp addTarget:self action:@selector(moveToNew:) forControlEvents:UIControlEventTouchUpInside];
-    self.intro = [[UILabel alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - 150, 100, 300, 100)];
+    self.intro = [[UILabel alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - 150, 80, 300, 100)];
     [self.intro setTextAlignment:NSTextAlignmentCenter];
     [self.intro setText:@"Tap Logo to Start"];
     [self.intro setFont:[UIFont fontWithName:@"HelveticaNeue-Thin" size:33.0f]];
@@ -117,6 +117,8 @@
 }
 
 - (void)logInViewController:(PFLogInViewController *)controller didLogInUser:(PFUser *)user {
+    [[PFInstallation currentInstallation] setObject:[PFUser currentUser][@"username"] forKey:@"username"];
+    [[PFInstallation currentInstallation] saveInBackground];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -165,7 +167,6 @@
             }
         }];
         NSLog(@"HELLO");
- 
         
         NSLog(@"%@", self.geo);
 //        [PFCloud callFunctionInBackground:@"attemptTransaction" withParameters:@{@"username" : self.user[@"username"], @"gps": self.geo, @"shake_time" : shakeTime, @"tip_amnt" : @"-1"} block:^(NSMutableArray *ratings, NSError *error) {
@@ -210,13 +211,15 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     CLLocation *crnLoc = [locations lastObject];
     self.geo = [PFGeoPoint geoPointWithLocation:crnLoc];
-    NSLog(@"Location has been updated.");
+    //NSLog(@"Location has been updated.");
     if (self.requests < 3) {
         self.user[@"isShaking"] = [NSNumber numberWithBool:YES];
         self.user[@"gps"] = self.geo;
         [self.user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (!succeeded) {
                 NSLog(@"%@", error.description);
+            } else {
+                NSLog(@"Updated the user!");
             }
         }];
     }

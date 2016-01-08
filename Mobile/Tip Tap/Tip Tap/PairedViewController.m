@@ -19,6 +19,9 @@
 
 @interface PairedViewController ()
 
+@property (nonatomic, retain) PFUser *otheruser;
+@property (nonatomic, retain) NSString* amountpaid;
+
 @end
 
 @implementation PairedViewController
@@ -67,7 +70,7 @@
     accept.layer.borderColor=[UIColor whiteColor].CGColor;
     accept.layer.borderWidth=4;
     [self.view addSubview:accept];
-    [accept addTarget:self action:@selector(moveToNew:) forControlEvents:UIControlEventTouchUpInside];
+    [accept addTarget:self action:@selector(accepted:) forControlEvents:UIControlEventTouchUpInside];
 
     // reject button for person you've paired with
     UIButton *reject = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -81,6 +84,30 @@
     [reject addTarget:self action:@selector(moveToNew:) forControlEvents:UIControlEventTouchUpInside];
 
     
+
+}
+
+- (void) setOtherUser:(PFUser*)lol amountPaid:(NSString*)amt {
+    self.otheruser = lol;
+    self.amountpaid = amt;
+}
+
+- (IBAction)accepted:(id)sender {
+    [PFCloud callFunctionInBackground:@"notifyRecipient" withParameters:@{@"u_name" : self.otheruser[@"username"], @"amt": self.amountpaid} block:^(PFObject *returnedUser, NSError *error) {
+        if (!error) {
+            NSLog(@"HELLOOOOO");
+        }
+    }];
+    
+//    ExchangeViewController *v = [[ExchangeViewController alloc] init];
+//    CATransition* transition = [CATransition animation];
+//    
+//    transition.duration = 0.3;
+//    transition.type = kCATransitionFade;
+//    
+//    [[self navigationController].view.layer addAnimation:transition forKey:kCATransition];
+  //  [[self navigationController] pushViewController:v animated:NO];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 
 }
 

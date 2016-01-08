@@ -21,6 +21,7 @@
 @property (nonatomic, retain) CLLocationManager *locationManager;
 @property (nonatomic, retain) PFGeoPoint *geo;
 @property PFUser *user;
+@property PFUser *otheruser;
 
 @end
 
@@ -111,6 +112,7 @@
         NSString *shakeTime = [NSString stringWithFormat:@"%f", [[NSDate date] timeIntervalSince1970]];
         [PFCloud callFunctionInBackground:@"attemptTransaction" withParameters:@{@"username" : self.user[@"username"], @"gps": self.geo, @"shake_time" : shakeTime, @"tip_amnt" : [_tipAmount.text substringFromIndex:1]} block:^(PFObject *returnedUser, NSError *error) {
             if (!error) {
+                self.otheruser = returnedUser;
                 int value = [[_tipAmount.text substringFromIndex:1] intValue];
                 [self executeTransfer:[NSNumber numberWithInt:value] medium:@"balance" fromAccountID:self.user[@"nessieId"] toAccountID:returnedUser[@"nessieId"] apiKey:@"3bdaaa3c82010b88c585c1e966c8d6f8"];
             }
@@ -152,7 +154,18 @@
                                                            {
                                                                NSString * text = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
                                                                NSLog(@"Data = %@",text);
+                                                               PairedViewController *v = [[PairedViewController alloc] init];
+                                                               [v setOtherUser:self.otheruser amountPaid:_tipAmount.text];
+                                                               CATransition* transition = [CATransition animation];
+                                                               
+                                                               transition.duration = 0.3;
+                                                               transition.type = kCATransitionFade;
+                                                               
+                                                               [[self navigationController].view.layer addAnimation:transition forKey:kCATransition];
+                                                               [[self navigationController] pushViewController:v animated:NO];
                                                                [self executeAnimationToSuccess];
+                                                               
+                                                               
                                                            }
                                                            
                                                        }];
@@ -162,14 +175,14 @@
 }
 
 - (void) executeAnimationToSuccess {
-    PairedViewController *v = [[PairedViewController alloc] init];
-    CATransition* transition = [CATransition animation];
-    
-    transition.duration = 0.3;
-    transition.type = kCATransitionFade;
-    
-    [[self navigationController].view.layer addAnimation:transition forKey:kCATransition];
-    [[self navigationController] pushViewController:v animated:NO];
+    //PairedViewController *v = [[PairedViewController alloc] init];
+//    CATransition* transition = [CATransition animation];
+//    
+//    transition.duration = 0.3;
+//    transition.type = kCATransitionFade;
+//    
+//    [[self navigationController].view.layer addAnimation:transition forKey:kCATransition];
+//    [[self navigationController] pushViewController:v animated:NO];
     
 }
 

@@ -28,6 +28,7 @@
                                                                              categories:nil];
     [application registerUserNotificationSettings:settings];
     [application registerForRemoteNotifications];
+    //[[PFInstallation currentInstallation] setObject:[PFUser currentUser][@"username"] forKey:@"username"];
     return YES;
 }
 
@@ -39,7 +40,7 @@
     // Store the deviceToken in the current installation and save it to Parse.
     PFInstallation *installation = [PFInstallation currentInstallation];
     [installation setDeviceTokenFromData:deviceToken];
-    installation.channels = @[ @"global" ];
+    installation.channels = @[@"global"];
     [installation saveInBackground];
 }
 

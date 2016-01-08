@@ -12,4 +12,7 @@
 
 @property (retain, nonatomic)  UILabel *pairmessage;
 
+- (void) setOtherUser:(PFUser*)lol amountPaid:(NSString*)amt
+    ;
+
 @end
